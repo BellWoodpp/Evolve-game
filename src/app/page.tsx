@@ -5,7 +5,7 @@ export default function Home() {
       id="game"
     >
       <iframe
-        src="/evolve-master/index.html"
+        src="/evolve/index.html"
         title="Evolve Game"
         className="h-full w-full border-0"
       />

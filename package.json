@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "rsync -a --delete Evolve-master/evolve/ public/evolve/evolve/ && cp Evolve-master/index.html public/evolve/index.html",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

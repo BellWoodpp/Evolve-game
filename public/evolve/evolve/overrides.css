@@ -143,8 +143,8 @@
   }
 
   .main .leftColumn {
-    flex: 0 0 min(18rem, 24vw);
-    max-width: min(18rem, 24vw);
+    flex: 0 0 min(24rem, 38vw);
+    max-width: min(24rem, 38vw);
   }
 
   .main #mainColumn {
@@ -201,6 +201,59 @@
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.main #powerGridFloatingPanel,
+.modal #powerGridFloatingPanel {
+  position: relative;
+  max-width: min(28rem, 92vw);
+}
+
+.main #powerGridFloatingPanel.power-grid-floating,
+.modal #powerGridFloatingPanel.power-grid-floating {
+  position: fixed;
+  right: 0.5rem;
+  top: 10rem;
+  width: min(28rem, 92vw);
+  max-height: 70vh;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: solid 0.0625rem rgba(255, 255, 255, 0.08);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+}
+
+.main #powerGridFloatingPanel.power-grid-floating.is-dragging,
+.modal #powerGridFloatingPanel.power-grid-floating.is-dragging {
+  cursor: move;
+  opacity: 0.95;
+}
+
+.main #powerGridFloatingHeader,
+.modal #powerGridFloatingHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  margin: -0.5rem -0.6rem 0.35rem;
+  background: rgba(0, 0, 0, 0.55);
+  border-bottom: solid 0.0625rem rgba(255, 255, 255, 0.08);
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.main #powerGridFloatingContent,
+.modal #powerGridFloatingContent {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.25rem;
 }
 
 .main .resTabs > .tabs,
@@ -263,6 +316,13 @@ body.left-column-collapsed .main #mainTabs > .tabs {
 .modal #mainTabs > nav.tabs > ul > li.main-tab-resources,
 .main #mainTabs > .tabs > ul > li.main-tab-resources,
 .modal #mainTabs > .tabs > ul > li.main-tab-resources {
+  display: none;
+}
+
+.main #mainTabs > nav.tabs > ul > li.main-tab-civic,
+.modal #mainTabs > nav.tabs > ul > li.main-tab-civic,
+.main #mainTabs > .tabs > ul > li.main-tab-civic,
+.modal #mainTabs > .tabs > ul > li.main-tab-civic {
   display: none;
 }
 
@@ -613,9 +673,129 @@ body.left-column-collapsed .main > .columns > #mainColumn {
   transition: transform 0.08s ease, filter 0.08s ease;
 }
 
+.main .content #tech-apartment.action a.button,
+.main .content #tech-mine_conveyor.action a.button,
+.main .content #tech-radio.action a.button,
+.main .content #tech-socialist.action a.button,
+.main .content #tech-republic.action a.button,
+.main .content #tech-cranes.action a.button,
+.main .content #tech-brickworks.action a.button,
+.main .content #tech-bessemer_process.action a.button,
+.main .content #tech-jackhammer.action a.button,
+.main .content #tech-gantry_crane.action a.button,
+.main .content #tech-industrialization.action a.button,
+.main .content #tech-swiss_banking.action a.button,
+.main .content #tech-spy_gadgets.action a.button,
+.modal #tech-apartment.action a.button,
+.modal #tech-mine_conveyor.action a.button,
+.modal #tech-radio.action a.button,
+.modal #tech-socialist.action a.button,
+.modal #tech-republic.action a.button,
+.modal #tech-cranes.action a.button,
+.modal #tech-brickworks.action a.button,
+.modal #tech-bessemer_process.action a.button,
+.modal #tech-jackhammer.action a.button,
+.modal #tech-gantry_crane.action a.button,
+.modal #tech-industrialization.action a.button,
+.modal #tech-swiss_banking.action a.button,
+.modal #tech-spy_gadgets.action a.button {
+  background: transparent no-repeat center;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #2ecc71;
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.35);
+  border-radius: 9999px;
+  min-height: 4.5rem;
+  min-width: 6rem;
+  padding: 0.1rem;
+  transform-origin: center;
+  transition: transform 0.08s ease, filter 0.08s ease;
+}
+
 .main .content #tech-bayer_process.action a.button,
 .modal #tech-bayer_process.action a.button {
   background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/bayer-process.webp);
+}
+
+.main .content #tech .action a.button .aTitle,
+.modal #tech .action a.button .aTitle {
+  color: transparent;
+  text-shadow: none;
+}
+
+.main .content #tech .action a.button:hover .aTitle,
+.main .content #tech .action a.button:focus-visible .aTitle,
+.main .content #tech .action a.button:active .aTitle,
+.modal #tech .action a.button:hover .aTitle,
+.modal #tech .action a.button:focus-visible .aTitle,
+.modal #tech .action a.button:active .aTitle {
+  color: #f8f8f8;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.85);
+}
+
+.main .content #tech-spy_gadgets.action a.button,
+.modal #tech-spy_gadgets.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/spy-gadgets.webp);
+}
+
+.main .content #tech-apartment.action a.button,
+.modal #tech-apartment.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/apartment.webp);
+}
+
+.main .content #tech-mine_conveyor.action a.button,
+.modal #tech-mine_conveyor.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/mine-conveyor-belts.webp);
+}
+
+.main .content #tech-radio.action a.button,
+.modal #tech-radio.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/radio.webp);
+}
+
+.main .content #tech-socialist.action a.button,
+.modal #tech-socialist.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/socialist.webp);
+}
+
+.main .content #tech-republic.action a.button,
+.modal #tech-republic.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/republic.webp);
+}
+
+.main .content #tech-cranes.action a.button,
+.modal #tech-cranes.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/cranes.webp);
+}
+
+.main .content #tech-brickworks.action a.button,
+.modal #tech-brickworks.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/brickworks.webp);
+}
+
+.main .content #tech-bessemer_process.action a.button,
+.modal #tech-bessemer_process.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/bessemer-process.webp);
+}
+
+.main .content #tech-jackhammer.action a.button,
+.modal #tech-jackhammer.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/jackhammer.webp);
+}
+
+.main .content #tech-gantry_crane.action a.button,
+.modal #tech-gantry_crane.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/gantry-cranes.webp);
+}
+
+.main .content #tech-industrialization.action a.button,
+.modal #tech-industrialization.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/industrialization.webp);
+}
+
+.main .content #tech-swiss_banking.action a.button,
+.modal #tech-swiss_banking.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/swiss-banking.webp);
 }
 
 .main .content #tech-steel.action a.button,
@@ -1290,6 +1470,95 @@ body.left-column-collapsed .main > .columns > #mainColumn {
   background-color: #9e9e9e;
 }
 
+#resources #resCoal.resource.showBar {
+  position: relative;
+}
+
+#resources #resCoal.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-image: repeating-linear-gradient(135deg, #111 0 4px, #2c2c2c 4px 8px);
+}
+
+#resources #resFurs.resource.showBar {
+  position: relative;
+}
+
+#resources #resFurs.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-image: repeating-linear-gradient(135deg, #5a3a1a 0 4px, #8b5a2b 4px 8px);
+}
+
+#resources #resMoney.resource.showBar {
+  position: relative;
+}
+
+#resources #resMoney.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-color: #d4af37;
+}
+
+#resources #resSteel.resource.showBar {
+  position: relative;
+}
+
+#resources #resSteel.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-color: #4f6d7a;
+}
+
+#resourcePanelFloatingToggle {
+  display: inline-flex;
+}
+
+#resourcePanelFloating.warehouse-only .resTabs > .tabs li:first-child,
+#resourcePanelFloating.warehouse-only #market {
+  display: none !important;
+}
+
+#resources .resource.resource-full .res {
+  text-shadow: 0 0 0.35rem currentColor;
+}
+
+#resources .resource.resource-full .res-icon svg {
+  filter: drop-shadow(0 0 0.3rem currentColor);
+}
+
 #resources .hide-left-numbers .count,
 #resources .hide-left-numbers .diff {
   display: none;
@@ -1458,6 +1727,28 @@ body.left-column-collapsed .main > .columns > #mainColumn {
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
+}
+
+#topBar .topbar-floating-toggles {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0.4rem 0 0.25rem;
+}
+
+#topBar .topbar-floating-toggles #smelterFloatingToggle,
+#topBar .topbar-floating-toggles #resourcePanelFloatingToggle,
+#topBar .topbar-floating-toggles #powerGridFloatingToggle,
+#topBar .topbar-floating-toggles #militaryTabFloatingToggle,
+#topBar .topbar-floating-toggles #governmentFloatingToggle,
+#topBar .topbar-floating-toggles #researchFloatingToggle {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin: 0;
+  z-index: auto;
 }
 
 #topBar .bgm-volume {
@@ -1666,6 +1957,18 @@ body.left-column-collapsed .main > .columns > #mainColumn {
   align-items: flex-start !important;
 }
 
+#civics {
+  grid-template-columns: minmax(0, 1fr) !important;
+  column-gap: 0 !important;
+  row-gap: 0.9rem;
+}
+
+#civics > .jobList,
+#civics > #r_civics {
+  width: 100%;
+  max-width: 100%;
+}
+
 #civics .jobList #jobs {
   justify-content: flex-start !important;
   text-align: left !important;
@@ -1701,11 +2004,196 @@ body.left-column-collapsed .main > .columns > #mainColumn {
   pointer-events: none;
 }
 
+#civics .jobList #job-market {
+  position: relative;
+  width: 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+  margin-top: 0.9rem;
+  padding-top: 2.4rem;
+}
+
+#civics .jobList #job-market::before {
+  content: "市场";
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  color: #f5c542;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+#civics .jobList #job-market::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.7rem;
+  width: 100%;
+  height: 0.1rem;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0), rgba(212, 175, 55, 0.7) 20%, rgba(212, 175, 55, 0.7) 80%, rgba(212, 175, 55, 0));
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded .tabs {
+  display: none;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded .tab-content > .tab-item {
+  display: none;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded .tab-content > #market,
+#civics .jobList #job-market #mTabResource.market-embedded .tab-content > #resStorage {
+  display: block !important;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded #resStorage {
+  position: relative;
+  margin-top: 1rem;
+  padding-top: 2.4rem;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded #resStorage::before {
+  content: "仓库";
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  color: #f5c542;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded #resStorage::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.7rem;
+  width: 100%;
+  height: 0.1rem;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0), rgba(212, 175, 55, 0.7) 20%, rgba(212, 175, 55, 0.7) 80%, rgba(212, 175, 55, 0));
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.main .content #mTabCivil .civil-triple {
+  height: calc(100vh - 10.5rem);
+}
+
+.main .content #mTabCivil .civil-triple > .column {
+  min-height: 0;
+}
+
+.main .content #mTabCivil #civilSplitMain {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.main .content #mTabCivil #civilTripleCivic,
+.main .content #mTabCivil #civilSplitCivic {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.main #civilSplitMain .resTabs {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.main #civilSplitMain .resTabs > .tab-content,
+.main #civilTripleCivic .resTabs > .tab-content,
+.main #civilSplitCivic .resTabs > .tab-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 197, 66, 0.7) rgba(255, 255, 255, 0.08);
+}
+
+.main #civilSplitMain .resTabs > .tab-content::-webkit-scrollbar,
+.main #civilTripleCivic .resTabs > .tab-content::-webkit-scrollbar,
+.main #civilSplitCivic .resTabs > .tab-content::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.main #civilSplitMain .resTabs > .tab-content::-webkit-scrollbar-thumb,
+.main #civilTripleCivic .resTabs > .tab-content::-webkit-scrollbar-thumb,
+.main #civilSplitCivic .resTabs > .tab-content::-webkit-scrollbar-thumb {
+  background: rgba(245, 197, 66, 0.7);
+  border-radius: 999px;
+}
+
+.main #civilSplitMain .resTabs > .tab-content::-webkit-scrollbar-track,
+.main #civilTripleCivic .resTabs > .tab-content::-webkit-scrollbar-track,
+.main #civilSplitCivic .resTabs > .tab-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+
+.main #civilSplitMain #city {
+  max-height: none;
+  overflow: visible;
+}
+
+#powerGridFloatingToggle {
+  position: fixed;
+  left: 1rem;
+  top: 12rem;
+  z-index: 100002;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border-radius: 999px;
+  border: solid 0.0625rem #f5c542;
+  background: #f5c542;
+  color: #1a1a1a;
+  font-weight: 700;
+  box-shadow: 0 0 0.5rem rgba(245, 197, 66, 0.55);
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
+}
+
+#powerGridFloatingToggle:hover {
+  background: #ffd45c;
+  border-color: #ffd45c;
+}
+
+#powerGridFloatingToggle svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+#powerGridFloatingToggle:active {
+  transform: translateY(1px) scale(0.95);
+  box-shadow: 0 0 0.3rem rgba(245, 197, 66, 0.55);
+  filter: brightness(0.95);
+}
+
+#powerGridFloatingToggle.is-dragging {
+  opacity: 0.9;
+}
+
 #civics .jobList #jobs .job.job-avatar {
   margin-left: 0 !important;
-  flex: 0 0 calc((100% - 0.75rem) / 4) !important;
-  width: calc((100% - 0.75rem) / 4) !important;
-  max-width: calc((100% - 0.75rem) / 4) !important;
+  flex: 0 0 calc((100% - 1rem) / 5) !important;
+  width: calc((100% - 1rem) / 5) !important;
+  max-width: calc((100% - 1rem) / 5) !important;
   display: grid !important;
   grid-template-columns: minmax(0, 1fr) !important;
   grid-auto-rows: max-content !important;
@@ -1792,4 +2280,254 @@ body.left-column-collapsed .main > .columns > #mainColumn {
   bottom: -0.7rem !important;
   font-size: 0.85rem !important;
   transform: translate(0, 0) translate(var(--count-max-offset-x, 0px), var(--count-max-offset-y, 0px)) !important;
+}
+
+.main .content #tech-corpocracy.action a.button,
+.main .content #tech-technocracy.action a.button,
+.main .content #tech-oil_well.action a.button,
+.main .content #tech-scientific_journal.action a.button,
+.main .content #tech-zoning_permits.action a.button,
+.main .content #tech-vocational_training.action a.button,
+.main .content #tech-portland_cement.action a.button,
+.main .content #tech-signing_bonus.action a.button,
+.main .content #tech-corruption.action a.button,
+.main .content #tech-freight.action a.button,
+.main .content #tech-titanium_axes.action a.button,
+.main .content #tech-warehouse.action a.button,
+.main .content #tech-titanium_hoe.action a.button,
+.main .content #tech-hunter_process.action a.button,
+.main .content #tech-oxygen_converter.action a.button,
+.main .content #tech-rotary_kiln.action a.button,
+.main .content #tech-oil_depot.action a.button,
+.main .content #tech-machine_gun.action a.button,
+.main .content #tech-adjunct_professor.action a.button,
+.main .content #tech-anfo.action a.button,
+.main .content #tech-wharf.action a.button,
+.modal #tech-corpocracy.action a.button,
+.modal #tech-technocracy.action a.button,
+.modal #tech-oil_well.action a.button,
+.modal #tech-scientific_journal.action a.button,
+.modal #tech-zoning_permits.action a.button,
+.modal #tech-vocational_training.action a.button,
+.modal #tech-portland_cement.action a.button,
+.modal #tech-signing_bonus.action a.button,
+.modal #tech-corruption.action a.button,
+.modal #tech-freight.action a.button,
+.modal #tech-titanium_axes.action a.button,
+.modal #tech-warehouse.action a.button,
+.modal #tech-titanium_hoe.action a.button,
+.modal #tech-hunter_process.action a.button,
+.modal #tech-oxygen_converter.action a.button,
+.modal #tech-rotary_kiln.action a.button,
+.modal #tech-oil_depot.action a.button,
+.modal #tech-machine_gun.action a.button,
+.modal #tech-adjunct_professor.action a.button,
+.modal #tech-anfo.action a.button,
+.modal #tech-wharf.action a.button {
+  background: transparent no-repeat center;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #2ecc71;
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.35);
+  border-radius: 9999px;
+  min-height: 4.5rem;
+  min-width: 6rem;
+  padding: 0.1rem;
+  transform-origin: center;
+  transition: transform 0.08s ease, filter 0.08s ease;
+}
+
+.main .content #tech-corpocracy.action a.button,
+.modal #tech-corpocracy.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/corpocracy.webp);
+}
+
+.main .content #tech-technocracy.action a.button,
+.modal #tech-technocracy.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/technocracy.webp);
+}
+
+.main .content #tech-oil_well.action a.button,
+.modal #tech-oil_well.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/oil-derrick.webp);
+}
+
+.main .content #tech-scientific_journal.action a.button,
+.modal #tech-scientific_journal.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/scientific-journal.webp);
+}
+
+.main .content #tech-zoning_permits.action a.button,
+.modal #tech-zoning_permits.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/zoning-permits.webp);
+}
+
+.main .content #tech-vocational_training.action a.button,
+.modal #tech-vocational_training.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/vocational-training.webp);
+}
+
+.main .content #tech-portland_cement.action a.button,
+.modal #tech-portland_cement.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/portland-cement.webp);
+}
+
+.main .content #tech-signing_bonus.action a.button,
+.modal #tech-signing_bonus.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/signing-bonus.webp);
+}
+
+.main .content #tech-corruption.action a.button,
+.modal #tech-corruption.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/corrupt-politicians.webp);
+}
+
+.main .content #tech-freight.action a.button,
+.modal #tech-freight.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/freight-trains.webp);
+}
+
+.main .content #tech-titanium_axes.action a.button,
+.modal #tech-titanium_axes.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/titanium-axe.webp);
+}
+
+.main .content #tech-warehouse.action a.button,
+.modal #tech-warehouse.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/warehouse.webp);
+}
+
+.main .content #tech-titanium_hoe.action a.button,
+.modal #tech-titanium_hoe.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/titanium-hoes.webp);
+}
+
+.main .content #tech-hunter_process.action a.button,
+.modal #tech-hunter_process.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/hunter-process.webp);
+}
+
+.main .content #tech-oxygen_converter.action a.button,
+.modal #tech-oxygen_converter.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/oxygen-converter.webp);
+}
+
+.main .content #tech-rotary_kiln.action a.button,
+.modal #tech-rotary_kiln.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/rotary-kiln.webp);
+}
+
+.main .content #tech-oil_depot.action a.button,
+.modal #tech-oil_depot.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/fuel-depot.webp);
+}
+
+.main .content #tech-machine_gun.action a.button,
+.modal #tech-machine_gun.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/machine-gun.webp);
+}
+
+.main .content #tech-adjunct_professor.action a.button,
+.modal #tech-adjunct_professor.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/adjunct-professiors.webp);
+}
+
+.main .content #tech-anfo.action a.button,
+.modal #tech-anfo.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/anfo.webp);
+}
+
+.main .content #tech-wharf.action a.button,
+.modal #tech-wharf.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/wharves.webp);
+}
+
+#civics .jobList #jobs .job-avatar-control.avatar-control-sub,
+#civics .jobList #jobs .job_label.job-avatar-label .job-avatar-control.avatar-control-sub {
+  color: #7ce7a1;
+  border-color: rgba(124, 231, 161, 0.95);
+}
+
+#civics .jobList #jobs .job-avatar-control.avatar-control-add,
+#civics .jobList #jobs .job_label.job-avatar-label .job-avatar-control.avatar-control-add {
+  color: #ff8a8a;
+  border-color: rgba(255, 138, 138, 0.95);
+}
+
+.job-avatar-control.avatar-control-sub {
+  color: #7ce7a1 !important;
+  border-color: rgba(124, 231, 161, 0.95) !important;
+}
+
+.job-avatar-control.avatar-control-add {
+  color: #ff8a8a !important;
+  border-color: rgba(255, 138, 138, 0.95) !important;
+}
+
+@keyframes job-control-tap {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(0.86);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+    filter: brightness(1.15);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    filter: brightness(1);
+  }
+}
+
+.job-avatar-control.avatar-control-sub:active,
+.job-avatar-control.avatar-control-add:active {
+  animation: job-control-tap 160ms ease;
+}
+
+#civics .jobList #jobs .job_label .count.has-text-success,
+#civics .jobList #jobs .job_label .count.has-text-success + .count,
+.resource-job-control.is-full .value,
+.resource-job-control.is-full .value.max {
+  color: #f5c542;
+}
+
+@keyframes job-count-flash-inc {
+  0% {
+    color: #ff8a8a;
+  }
+  100% {
+    color: inherit;
+  }
+}
+
+@keyframes job-count-flash-dec {
+  0% {
+    color: #7ce7a1;
+  }
+  100% {
+    color: inherit;
+  }
+}
+
+.job-count-flash-inc {
+  color: #ff8a8a !important;
+  animation: job-count-flash-inc 520ms ease;
+}
+
+.job-count-flash-dec {
+  color: #7ce7a1 !important;
+  animation: job-count-flash-dec 520ms ease;
+}
+
+.resource-job-control.flash-inc .value,
+.resource-job-control.flash-inc .value.max {
+  color: #ff8a8a !important;
+}
+
+.resource-job-control.flash-dec .value,
+.resource-job-control.flash-dec .value.max {
+  color: #7ce7a1 !important;
 }
