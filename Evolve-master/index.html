@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         :root {
-            --photo-base: /photo/;
+            --photo-base: https://r2.evolvegame.org/photo/;
         }
     </style>
     <script>
@@ -14,6 +14,9 @@
             const localHosts = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
             const isLocal = window.location.protocol === 'file:' || localHosts.has(window.location.hostname);
             const isGithubPages = window.location.hostname.endsWith('github.io');
+            const remotePhotoBase = 'https://r2.evolvegame.org/photo/';
+            const remoteVoiceBase = 'https://r2.evolvegame.org/voice/';
+            const allowLocalPhoto = false;
             const getGithubPagesRoot = () => {
                 const parts = window.location.pathname.split('/').filter(Boolean);
                 if (!parts.length) {
@@ -34,7 +37,7 @@
                 return path.slice(0, slashIndex + 1);
             };
             const localRoot = getLocalRoot();
-            const localPhotoBases = isLocal
+            const localPhotoBases = isLocal && allowLocalPhoto
                 ? Array.from(new Set([
                     `${localRoot}photo/`,
                     '/photo/',
@@ -42,12 +45,8 @@
                     '/evolve/photo/'
                 ]))
                 : [];
-            let photoBase = isLocal
-                ? (localPhotoBases[0] || '/photo/')
-                : (isGithubPages ? `${assetRoot}photo/` : 'https://r2bucket.randompokemongenerators.com/photo/');
-            const voiceBase = isGithubPages
-                ? `${assetRoot}voice/`
-                : 'https://r2bucket.randompokemongenerators.com/voice/';
+            let photoBase = remotePhotoBase;
+            const voiceBase = remoteVoiceBase;
             const applyPhotoBase = (value) => {
                 photoBase = value;
                 window.__photoBase = photoBase;
