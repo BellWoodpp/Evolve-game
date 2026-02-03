@@ -7995,6 +7995,7 @@ export function drawCity(force = false){
         const groveAction = actions?.city?.basic_housing;
         const farmAction = actions?.city?.farm;
         const lumberYardAction = actions?.city?.lumber_yard;
+        const storageYardAction = actions?.city?.storage_yard;
         const cottageAction = actions?.city?.cottage;
         const sawmillAction = actions?.city?.sawmill;
         const shedAction = actions?.city?.shed;
@@ -8003,7 +8004,9 @@ export function drawCity(force = false){
         const siloAction = actions?.city?.silo;
         const bankAction = actions?.city?.bank;
         const mineAction = actions?.city?.mine;
+        const coalMineAction = actions?.city?.coal_mine;
         const cementAction = actions?.city?.cement_plant;
+        const smelterAction = actions?.city?.smelter;
         const foundryAction = actions?.city?.foundry;
         const libraryAction = actions?.city?.library;
         const amphitheatreAction = actions?.city?.amphitheatre;
@@ -8056,6 +8059,12 @@ export function drawCity(force = false){
             }
             return typeof lumberYardAction.desc === 'string' ? lumberYardAction.desc : lumberYardAction.desc();
         };
+        const buildStorageYardTooltip = () => {
+            if (!storageYardAction){
+                return loc('city_storage_yard');
+            }
+            return typeof storageYardAction.desc === 'string' ? storageYardAction.desc : storageYardAction.desc();
+        };
         const buildCottageTooltip = () => {
             if (!cottageAction){
                 return loc('city_cottage_title1');
@@ -8104,11 +8113,23 @@ export function drawCity(force = false){
             }
             return typeof mineAction.desc === 'string' ? mineAction.desc : mineAction.desc();
         };
+        const buildCoalMineTooltip = () => {
+            if (!coalMineAction){
+                return loc('city_coal_mine');
+            }
+            return typeof coalMineAction.desc === 'string' ? coalMineAction.desc : coalMineAction.desc();
+        };
         const buildCementTooltip = () => {
             if (!cementAction){
                 return loc('city_cement_plant_desc');
             }
             return typeof cementAction.desc === 'string' ? cementAction.desc : cementAction.desc();
+        };
+        const buildSmelterTooltip = () => {
+            if (!smelterAction){
+                return loc('city_smelter_desc');
+            }
+            return typeof smelterAction.desc === 'string' ? smelterAction.desc : smelterAction.desc();
         };
         const buildFoundryTooltip = () => {
             if (!foundryAction){
@@ -8192,6 +8213,12 @@ export function drawCity(force = false){
             else {
                 setTimeout(retry, 50);
             }
+        };
+        const isCityPropInnerHit = (event) => {
+            if (!event?.target){
+                return false;
+            }
+            return $(event.target).closest('.city-bg-prop-inner').length > 0;
         };
         const refreshCoverRects = () => {
             if (!districtGrid || !districtGrid.length){
@@ -8540,6 +8567,31 @@ export function drawCity(force = false){
                 }
             });
         };
+        const bindStorageYardTooltip = (target, tooltipId) => {
+            if (!target || !target.length || target.data('storageYardTooltipBound')){
+                return;
+            }
+            target.data('storageYardTooltipBound', true);
+            const popId = storageYardAction?.id || tooltipId;
+            popover(popId, function(){ return undefined; },{
+                elm: target,
+                self: true,
+                in: function(obj){
+                    const tooltip = buildStorageYardTooltip();
+                    $(obj.this).attr('aria-label', tooltip);
+                    $(obj.this).attr('title', tooltip);
+                    if (storageYardAction){
+                        actionDesc(obj.popper, storageYardAction, global?.city?.storage_yard, false, 'city', 'storage_yard');
+                    }
+                    else {
+                        obj.popper.append(`<div>${tooltip}</div>`);
+                    }
+                },
+                out: function(){
+                    vBind({el: '#popTimer'},'destroy');
+                }
+            });
+        };
         const bindCottageTooltip = (target, tooltipId) => {
             if (!target || !target.length || target.data('cottageTooltipBound')){
                 return;
@@ -8740,6 +8792,31 @@ export function drawCity(force = false){
                 }
             });
         };
+        const bindCoalMineTooltip = (target, tooltipId) => {
+            if (!target || !target.length || target.data('coalMineTooltipBound')){
+                return;
+            }
+            target.data('coalMineTooltipBound', true);
+            const popId = coalMineAction?.id || tooltipId;
+            popover(popId, function(){ return undefined; },{
+                elm: target,
+                self: true,
+                in: function(obj){
+                    const tooltip = buildCoalMineTooltip();
+                    $(obj.this).attr('aria-label', tooltip);
+                    $(obj.this).attr('title', tooltip);
+                    if (coalMineAction){
+                        actionDesc(obj.popper, coalMineAction, global?.city?.coal_mine, false, 'city', 'coal_mine');
+                    }
+                    else {
+                        obj.popper.append(`<div>${tooltip}</div>`);
+                    }
+                },
+                out: function(){
+                    vBind({el: '#popTimer'},'destroy');
+                }
+            });
+        };
         const bindCementTooltip = (target, tooltipId) => {
             if (!target || !target.length || target.data('cementTooltipBound')){
                 return;
@@ -8755,6 +8832,31 @@ export function drawCity(force = false){
                     $(obj.this).attr('title', tooltip);
                     if (cementAction){
                         actionDesc(obj.popper, cementAction, global?.city?.cement_plant, false, 'city', 'cement_plant');
+                    }
+                    else {
+                        obj.popper.append(`<div>${tooltip}</div>`);
+                    }
+                },
+                out: function(){
+                    vBind({el: '#popTimer'},'destroy');
+                }
+            });
+        };
+        const bindSmelterTooltip = (target, tooltipId) => {
+            if (!target || !target.length || target.data('smelterTooltipBound')){
+                return;
+            }
+            target.data('smelterTooltipBound', true);
+            const popId = smelterAction?.id || tooltipId;
+            popover(popId, function(){ return undefined; },{
+                elm: target,
+                self: true,
+                in: function(obj){
+                    const tooltip = buildSmelterTooltip();
+                    $(obj.this).attr('aria-label', tooltip);
+                    $(obj.this).attr('title', tooltip);
+                    if (smelterAction){
+                        actionDesc(obj.popper, smelterAction, global?.city?.smelter, false, 'city', 'smelter');
                     }
                     else {
                         obj.popper.append(`<div>${tooltip}</div>`);
@@ -9093,6 +9195,9 @@ export function drawCity(force = false){
                         groveBuild.data('justDragged', false);
                         return;
                     }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
                     runAction(groveAction, 'city', 'basic_housing');
                     updateGroveCount();
                     groveBuild.addClass('is-clicked');
@@ -9156,6 +9261,9 @@ export function drawCity(force = false){
                 farmBuild.on('click', (event) => {
                     if (farmBuild.data('justDragged')){
                         farmBuild.data('justDragged', false);
+                        return;
+                    }
+                    if (!isCityPropInnerHit(event)){
                         return;
                     }
                     runAction(farmAction, 'city', 'farm');
@@ -9222,6 +9330,9 @@ export function drawCity(force = false){
                         lumberYardBuild.data('justDragged', false);
                         return;
                     }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
                     runAction(lumberYardAction, 'city', 'lumber_yard');
                     updateLumberYardCount();
                     lumberYardBuild.addClass('is-clicked');
@@ -9286,6 +9397,9 @@ export function drawCity(force = false){
                         sawmillBuild.data('justDragged', false);
                         return;
                     }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
                     runAction(sawmillAction, 'city', 'sawmill');
                     updateSawmillCount();
                     sawmillBuild.addClass('is-clicked');
@@ -9302,6 +9416,74 @@ export function drawCity(force = false){
             bindSawmillTooltip(sawmillBuild, 'sawmill-build-tooltip');
         }
 
+        const canShowStorageYard = storageYardAction && checkTechQualifications(storageYardAction, 'storage_yard');
+        const canBuildStorageYard = canShowStorageYard && checkCityRequirements('storage_yard');
+        let storageYardBuild = districtGrid.find('.city-bg-prop-storage-yard');
+        if (!canShowStorageYard){
+            if (storageYardBuild.length){
+                storageYardBuild.remove();
+            }
+        }
+        else {
+            if (!storageYardBuild.length){
+                storageYardBuild = $('<div class="city-bg-prop-storage-yard" role="button"><div class="city-bg-prop-inner" aria-hidden="true"></div></div>');
+                districtGrid.append(storageYardBuild);
+            }
+            scheduleCoverRect(
+                storageYardBuild,
+                { x: 1156, y: 522, width: 176, height: 176 },
+                { width: 1583, height: 706 }
+            );
+            const storageYardLabel = typeof storageYardAction?.title === 'string' ? storageYardAction.title : storageYardAction?.title?.();
+            if (storageYardLabel){
+                storageYardBuild.attr('data-label', storageYardLabel);
+            }
+            let storageYardCount = storageYardBuild.find('.city-bg-prop-count');
+            if (!storageYardCount.length){
+                storageYardCount = $('<div class="city-bg-prop-count" aria-hidden="true"></div>');
+                storageYardBuild.append(storageYardCount);
+            }
+            const updateStorageYardCount = () => {
+                const storageYardCountVal = global.city?.storage_yard?.count ?? 0;
+                if (storageYardCountVal > 0){
+                    storageYardBuild.addClass('has-count');
+                    storageYardCount.text(storageYardCountVal);
+                }
+                else {
+                    storageYardBuild.removeClass('has-count');
+                    storageYardCount.text('');
+                }
+            };
+            updateStorageYardCount();
+            if (!storageYardBuild.data('buildBound')){
+                storageYardBuild.data('buildBound', true);
+                const storageYardTooltip = buildStorageYardTooltip();
+                storageYardBuild.attr('aria-label', storageYardTooltip);
+                storageYardBuild.attr('title', storageYardTooltip);
+                storageYardBuild.on('click', (event) => {
+                    if (storageYardBuild.data('justDragged')){
+                        storageYardBuild.data('justDragged', false);
+                        return;
+                    }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
+                    runAction(storageYardAction, 'city', 'storage_yard');
+                    updateStorageYardCount();
+                    storageYardBuild.addClass('is-clicked');
+                    setTimeout(() => {
+                        storageYardBuild.removeClass('is-clicked');
+                    }, 300);
+                });
+                storageYardBuild.on('pointerdown mousedown touchstart', (event) => {
+                    if (event.cancelable){
+                        event.preventDefault();
+                    }
+                });
+            }
+            bindStorageYardTooltip(storageYardBuild, 'storage-yard-build-tooltip');
+        }
+
         const canBuildCottage = cottageAction && checkCityRequirements('cottage') && checkTechQualifications(cottageAction, 'cottage');
         let cottageBuild = districtGrid.find('.city-bg-prop-cottage');
         if (!canBuildCottage){
@@ -9316,7 +9498,7 @@ export function drawCity(force = false){
             }
             scheduleCoverRect(
                 cottageBuild,
-                { x: 641, y: 378, width: 172, height: 128 },
+                { x: 560, y: 310, width: 172, height: 128 },
                 { width: 1583, height: 706 }
             );
             const cottageLabel = typeof cottageAction?.title === 'string' ? cottageAction.title : cottageAction?.title?.();
@@ -9348,6 +9530,9 @@ export function drawCity(force = false){
                 cottageBuild.on('click', (event) => {
                     if (cottageBuild.data('justDragged')){
                         cottageBuild.data('justDragged', false);
+                        return;
+                    }
+                    if (!isCityPropInnerHit(event)){
                         return;
                     }
                     runAction(cottageAction, 'city', 'cottage');
@@ -9414,6 +9599,9 @@ export function drawCity(force = false){
                         shedBuild.data('justDragged', false);
                         return;
                     }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
                     runAction(shedAction, 'city', 'shed');
                     updateShedCount();
                     shedBuild.addClass('is-clicked');
@@ -9476,6 +9664,9 @@ export function drawCity(force = false){
                 universityBuild.on('click', (event) => {
                     if (universityBuild.data('justDragged')){
                         universityBuild.data('justDragged', false);
+                        return;
+                    }
+                    if (!isCityPropInnerHit(event)){
                         return;
                     }
                     runAction(universityAction, 'city', 'university');
@@ -9542,6 +9733,9 @@ export function drawCity(force = false){
                         garrisonBuild.data('justDragged', false);
                         return;
                     }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
                     runAction(garrisonAction, 'city', 'garrison');
                     updateGarrisonCount();
                     garrisonBuild.addClass('is-clicked');
@@ -9604,6 +9798,9 @@ export function drawCity(force = false){
                 siloBuild.on('click', (event) => {
                     if (siloBuild.data('justDragged')){
                         siloBuild.data('justDragged', false);
+                        return;
+                    }
+                    if (!isCityPropInnerHit(event)){
                         return;
                     }
                     runAction(siloAction, 'city', 'silo');
@@ -9669,6 +9866,9 @@ export function drawCity(force = false){
                 bankBuild.on('click', (event) => {
                     if (bankBuild.data('justDragged')){
                         bankBuild.data('justDragged', false);
+                        return;
+                    }
+                    if (!isCityPropInnerHit(event)){
                         return;
                     }
                     const canBuildNow = bankAction && checkCityRequirements('bank') && checkTechQualifications(bankAction, 'bank');
@@ -9745,6 +9945,9 @@ export function drawCity(force = false){
                         mineBuild.data('justDragged', false);
                         return;
                     }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
                     const canBuildNow = mineAction && checkCityRequirements('mine') && checkTechQualifications(mineAction, 'mine');
                     if (!canBuildNow){
                         mineBuild.addClass('is-clicked');
@@ -9767,6 +9970,75 @@ export function drawCity(force = false){
                 });
             }
             bindMineTooltip(mineBuild, 'mine-build-tooltip');
+        }
+
+        const hasCoalMining = Boolean(global.tech_completed?.coal_mining || checkOldTech('coal_mining'));
+        const canShowCoalMine = coalMineAction && hasCoalMining && checkTechQualifications(coalMineAction, 'coal_mine');
+        const canBuildCoalMine = canShowCoalMine && checkCityRequirements('coal_mine');
+        let coalMineBuild = districtGrid.find('.city-bg-prop-coal-mine');
+        if (!canShowCoalMine){
+            if (coalMineBuild.length){
+                coalMineBuild.remove();
+            }
+        }
+        else {
+            if (!coalMineBuild.length){
+                coalMineBuild = $('<div class="city-bg-prop-coal-mine" role="button"><div class="city-bg-prop-inner" aria-hidden="true"></div></div>');
+                districtGrid.append(coalMineBuild);
+            }
+            scheduleCoverRect(
+                coalMineBuild,
+                { x: 1335, y: 130, width: 120, height: 64 },
+                { width: 1583, height: 706 }
+            );
+            const coalMineLabel = typeof coalMineAction?.title === 'string' ? coalMineAction.title : coalMineAction?.title?.();
+            if (coalMineLabel){
+                coalMineBuild.attr('data-label', coalMineLabel);
+            }
+            let coalMineCount = coalMineBuild.find('.city-bg-prop-count');
+            if (!coalMineCount.length){
+                coalMineCount = $('<div class="city-bg-prop-count" aria-hidden="true"></div>');
+                coalMineBuild.append(coalMineCount);
+            }
+            const updateCoalMineCount = () => {
+                const coalMineCountVal = global.city?.coal_mine?.count ?? 0;
+                if (coalMineCountVal > 0){
+                    coalMineBuild.addClass('has-count');
+                    coalMineCount.text(coalMineCountVal);
+                }
+                else {
+                    coalMineBuild.removeClass('has-count');
+                    coalMineCount.text('');
+                }
+            };
+            updateCoalMineCount();
+            if (!coalMineBuild.data('buildBound')){
+                coalMineBuild.data('buildBound', true);
+                const coalMineTooltip = buildCoalMineTooltip();
+                coalMineBuild.attr('aria-label', coalMineTooltip);
+                coalMineBuild.attr('title', coalMineTooltip);
+                coalMineBuild.on('click', (event) => {
+                    if (coalMineBuild.data('justDragged')){
+                        coalMineBuild.data('justDragged', false);
+                        return;
+                    }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
+                    runAction(coalMineAction, 'city', 'coal_mine');
+                    updateCoalMineCount();
+                    coalMineBuild.addClass('is-clicked');
+                    setTimeout(() => {
+                        coalMineBuild.removeClass('is-clicked');
+                    }, 300);
+                });
+                coalMineBuild.on('pointerdown mousedown touchstart', (event) => {
+                    if (event.cancelable){
+                        event.preventDefault();
+                    }
+                });
+            }
+            bindCoalMineTooltip(coalMineBuild, 'coal-mine-build-tooltip');
         }
 
         const canShowCement = cementAction && checkTechQualifications(cementAction, 'cement_plant');
@@ -9818,6 +10090,9 @@ export function drawCity(force = false){
                         cementBuild.data('justDragged', false);
                         return;
                     }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
                     const canBuildNow = cementAction && checkCityRequirements('cement_plant') && checkTechQualifications(cementAction, 'cement_plant');
                     if (!canBuildNow){
                         cementBuild.addClass('is-clicked');
@@ -9840,6 +10115,116 @@ export function drawCity(force = false){
                 });
             }
             bindCementTooltip(cementBuild, 'cement-build-tooltip');
+        }
+
+        const canShowSmelter = smelterAction && checkTechQualifications(smelterAction, 'smelter');
+        const canBuildSmelter = canShowSmelter && checkCityRequirements('smelter');
+        let smelterBuild = districtGrid.find('.city-bg-prop-smelter');
+        if (!canShowSmelter){
+            if (smelterBuild.length){
+                smelterBuild.remove();
+            }
+        }
+        else {
+            if (!smelterBuild.length){
+                smelterBuild = $('<div class="city-bg-prop-smelter" role="button"><div class="city-bg-prop-inner" aria-hidden="true"></div></div>');
+                districtGrid.append(smelterBuild);
+            }
+            let smelterGear = smelterBuild.find('.smelter-gear');
+            if (!smelterGear.length){
+                smelterGear = $(
+                    `<span class="smelter-gear" aria-hidden="true">` +
+                        `<svg version="1.1" x="0px" y="0px" viewBox="340 140 280 279.416" xml:space="preserve">` +
+                            `<path class="gear" d="M620,305.666v-51.333l-31.5-5.25c-2.333-8.75-5.833-16.917-9.917-23.917L597.25,199.5l-36.167-36.75l-26.25,18.083` +
+                                ` c-7.583-4.083-15.75-7.583-23.916-9.917L505.667,140h-51.334l-5.25,31.5c-8.75,2.333-16.333,5.833-23.916,9.916L399.5,163.333` +
+                                ` L362.75,199.5l18.667,25.666c-4.083,7.584-7.583,15.75-9.917,24.5l-31.5,4.667v51.333l31.5,5.25` +
+                                ` c2.333,8.75,5.833,16.334,9.917,23.917l-18.667,26.25l36.167,36.167l26.25-18.667c7.583,4.083,15.75,7.583,24.5,9.917l5.25,30.916` +
+                                ` h51.333l5.25-31.5c8.167-2.333,16.333-5.833,23.917-9.916l26.25,18.666l36.166-36.166l-18.666-26.25` +
+                                ` c4.083-7.584,7.583-15.167,9.916-23.917L620,305.666z M480,333.666c-29.75,0-53.667-23.916-53.667-53.666s24.5-53.667,53.667-53.667` +
+                                ` S533.667,250.25,533.667,280S509.75,333.666,480,333.666z"/>` +
+                        `</svg>` +
+                    `</span>`
+                );
+                smelterBuild.append(smelterGear);
+            }
+            if (!smelterGear.data('clickBound')){
+                smelterGear.data('clickBound', true);
+                smelterGear.on('click', (event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (global.settings){
+                        global.settings.smelterFloatingOpen = true;
+                    }
+                    refreshTopBarAndResearchToggle();
+                });
+                smelterGear.on('pointerdown mousedown touchstart', (event) => {
+                    if (event.cancelable){
+                        event.preventDefault();
+                    }
+                    event.stopPropagation();
+                });
+            }
+            scheduleCoverRect(
+                smelterBuild,
+                { x: 317, y: 166, width: 163, height: 150 },
+                { width: 1583, height: 706 }
+            );
+            const smelterLabel = typeof smelterAction?.title === 'string' ? smelterAction.title : smelterAction?.title?.();
+            if (smelterLabel){
+                smelterBuild.attr('data-label', smelterLabel);
+            }
+            let smelterCount = smelterBuild.find('.city-bg-prop-count');
+            if (!smelterCount.length){
+                smelterCount = $('<div class="city-bg-prop-count" aria-hidden="true"></div>');
+                smelterBuild.append(smelterCount);
+            }
+            const updateSmelterCount = () => {
+                const smelterCountVal = global.city?.smelter?.count ?? 0;
+                if (smelterCountVal > 0){
+                    smelterBuild.addClass('has-count');
+                    smelterCount.text(smelterCountVal);
+                }
+                else {
+                    smelterBuild.removeClass('has-count');
+                    smelterCount.text('');
+                }
+            };
+            updateSmelterCount();
+            if (!smelterBuild.data('buildBound')){
+                smelterBuild.data('buildBound', true);
+                const smelterTooltip = buildSmelterTooltip();
+                smelterBuild.attr('aria-label', smelterTooltip);
+                smelterBuild.attr('title', smelterTooltip);
+                smelterBuild.on('click', (event) => {
+                    if (smelterBuild.data('justDragged')){
+                        smelterBuild.data('justDragged', false);
+                        return;
+                    }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
+                    const canBuildNow = smelterAction && checkCityRequirements('smelter') && checkTechQualifications(smelterAction, 'smelter');
+                    if (!canBuildNow){
+                        smelterBuild.addClass('is-clicked');
+                        setTimeout(() => {
+                            smelterBuild.removeClass('is-clicked');
+                        }, 300);
+                        return;
+                    }
+                    runAction(smelterAction, 'city', 'smelter');
+                    updateSmelterCount();
+                    smelterBuild.addClass('is-clicked');
+                    setTimeout(() => {
+                        smelterBuild.removeClass('is-clicked');
+                    }, 300);
+                });
+                smelterBuild.on('pointerdown mousedown touchstart', (event) => {
+                    if (event.cancelable){
+                        event.preventDefault();
+                    }
+                });
+            }
+            bindSmelterTooltip(smelterBuild, 'smelter-build-tooltip');
         }
 
         const canShowFoundry = foundryAction && checkTechQualifications(foundryAction, 'foundry');
@@ -9889,6 +10274,9 @@ export function drawCity(force = false){
                 foundryBuild.on('click', (event) => {
                     if (foundryBuild.data('justDragged')){
                         foundryBuild.data('justDragged', false);
+                        return;
+                    }
+                    if (!isCityPropInnerHit(event)){
                         return;
                     }
                     const canBuildNow = foundryAction && checkCityRequirements('foundry') && checkTechQualifications(foundryAction, 'foundry');
@@ -9964,6 +10352,9 @@ export function drawCity(force = false){
                         libraryBuild.data('justDragged', false);
                         return;
                     }
+                    if (!isCityPropInnerHit(event)){
+                        return;
+                    }
                     const canBuildNow = libraryAction && checkCityRequirements('library') && checkTechQualifications(libraryAction, 'library');
                     if (!canBuildNow){
                         libraryBuild.addClass('is-clicked');
@@ -10035,6 +10426,9 @@ export function drawCity(force = false){
                 amphitheatreBuild.on('click', (event) => {
                     if (amphitheatreBuild.data('justDragged')){
                         amphitheatreBuild.data('justDragged', false);
+                        return;
+                    }
+                    if (!isCityPropInnerHit(event)){
                         return;
                     }
                     const canBuildNow = amphitheatreAction && checkCityRequirements('amphitheatre') && checkTechQualifications(amphitheatreAction, 'amphitheatre');

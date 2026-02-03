@@ -19,14 +19,14 @@ const supportButtons = [
 ];
 
 const buttonClass =
-  "w-full rounded-lg border border-neutral-800 bg-neutral-950/40 px-3 py-2 text-sm text-neutral-200 transition hover:border-neutral-700 hover:bg-neutral-900";
+  "rounded-md border border-neutral-800 bg-neutral-950/40 px-3 py-1.5 text-xs text-neutral-200 transition hover:border-neutral-700 hover:bg-neutral-900";
 
 export default function Sidebar() {
   return (
-    <aside className="hidden lg:block w-64 shrink-0 border-r border-neutral-800 bg-neutral-950/70 backdrop-blur-md text-neutral-100">
-      <div className="sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto px-4 py-6">
-        <nav className="space-y-4">
-          <div className="space-y-2">
+    <aside className="fixed top-16 left-0 right-0 z-40 border-b border-neutral-800 bg-neutral-950/70 text-neutral-100 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
+        <nav className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-2">
             {actionButtons.map((item) => (
               <button key={item.id} type="button" className={buttonClass}>
                 {item.label}
@@ -34,7 +34,9 @@ export default function Sidebar() {
             ))}
           </div>
 
-          <div className="space-y-2">
+          <div className="hidden h-6 w-px bg-neutral-800 sm:block" />
+
+          <div className="flex items-center gap-2">
             {resourceButtons.map((item) => (
               <button key={item.id} type="button" className={buttonClass}>
                 {item.label}
@@ -42,7 +44,9 @@ export default function Sidebar() {
             ))}
           </div>
 
-          <div className="border-t border-neutral-800 pt-4 space-y-2">
+          <div className="hidden h-6 w-px bg-neutral-800 sm:block" />
+
+          <div className="flex items-center gap-2">
             {communityButtons.map((item) => (
               <button key={item.id} type="button" className={buttonClass}>
                 {item.label}
@@ -50,7 +54,9 @@ export default function Sidebar() {
             ))}
           </div>
 
-          <div className="space-y-2">
+          <div className="hidden h-6 w-px bg-neutral-800 sm:block" />
+
+          <div className="flex items-center gap-2">
             {supportButtons.map((item) => (
               <button key={item.id} type="button" className={buttonClass}>
                 {item.label}

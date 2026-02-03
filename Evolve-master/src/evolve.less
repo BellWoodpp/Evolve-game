@@ -4801,7 +4801,8 @@ a {
         box-shadow: 0 0 8px rgba(255, 170, 60, 0.25);
         clip-path: polygon(0.7rem 0, calc(100% - 0.7rem) 0, 100% 0.7rem, 100% calc(100% - 0.7rem), calc(100% - 0.7rem) 100%, 0.7rem 100%, 0 calc(100% - 0.7rem), 0 0.7rem);
         z-index: 2;
-        pointer-events: none;
+        pointer-events: auto;
+        cursor: pointer;
     }
 
     .evolving-fill {
@@ -4827,7 +4828,8 @@ a {
             repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0, rgba(255, 255, 255, 0.08) 6px, transparent 6px, transparent 12px),
             linear-gradient(90deg, rgba(0, 230, 255, 0.12), rgba(255, 170, 60, 0.08));
         opacity: 0.35;
-        pointer-events: none;
+        pointer-events: auto;
+        cursor: pointer;
     }
 
     .evolving-label {
@@ -5828,7 +5830,8 @@ a {
         font-weight: 700;
         font-size: 0.9rem;
         text-shadow: 0 0 4px rgba(0, 0, 0, 0.85);
-        pointer-events: none;
+        pointer-events: auto;
+        cursor: pointer;
     }
 
     .pinguicula-portrait-panel {
@@ -9188,6 +9191,9 @@ body.research-floating-open #mTabResearch {
     #cityDistrictGrid .city-bg-prop-lumberyard::after,
     #cityDistrictGrid .city-bg-prop-sawmill::after,
     #cityDistrictGrid .city-bg-prop-cottage::after,
+    #cityDistrictGrid .city-bg-prop-coal-mine::after,
+    #cityDistrictGrid .city-bg-prop-storage-yard::after,
+    #cityDistrictGrid .city-bg-prop-smelter::after,
     #cityDistrictGrid .city-bg-prop-shed::after,
     #cityDistrictGrid .city-bg-prop-university::after,
     #cityDistrictGrid .city-bg-prop-garrison::after,
@@ -9220,11 +9226,15 @@ body.research-floating-open #mTabResearch {
         z-index: 2;
     }
 
+
     #cityDistrictGrid .city-bg-prop-grove-build:hover::after,
     #cityDistrictGrid .city-bg-prop-farm-build:hover::after,
     #cityDistrictGrid .city-bg-prop-lumberyard:hover::after,
     #cityDistrictGrid .city-bg-prop-sawmill:hover::after,
     #cityDistrictGrid .city-bg-prop-cottage:hover::after,
+    #cityDistrictGrid .city-bg-prop-coal-mine:hover::after,
+    #cityDistrictGrid .city-bg-prop-storage-yard:hover::after,
+    #cityDistrictGrid .city-bg-prop-smelter:hover::after,
     #cityDistrictGrid .city-bg-prop-shed:hover::after,
     #cityDistrictGrid .city-bg-prop-university:hover::after,
     #cityDistrictGrid .city-bg-prop-garrison:hover::after,
@@ -9239,12 +9249,54 @@ body.research-floating-open #mTabResearch {
         transform: translate(-50%, -50%) scale(1);
     }
 
+    #cityDistrictGrid .city-bg-prop-grove-build,
+    #cityDistrictGrid .city-bg-prop-farm-build,
+    #cityDistrictGrid .city-bg-prop-lumberyard,
+    #cityDistrictGrid .city-bg-prop-sawmill,
+    #cityDistrictGrid .city-bg-prop-cottage,
+    #cityDistrictGrid .city-bg-prop-coal-mine,
+    #cityDistrictGrid .city-bg-prop-storage-yard,
+    #cityDistrictGrid .city-bg-prop-smelter,
+    #cityDistrictGrid .city-bg-prop-shed,
+    #cityDistrictGrid .city-bg-prop-university,
+    #cityDistrictGrid .city-bg-prop-garrison,
+    #cityDistrictGrid .city-bg-prop-silo,
+    #cityDistrictGrid .city-bg-prop-bank,
+    #cityDistrictGrid .city-bg-prop-mine,
+    #cityDistrictGrid .city-bg-prop-cement,
+    #cityDistrictGrid .city-bg-prop-foundry,
+    #cityDistrictGrid .city-bg-prop-library,
+    #cityDistrictGrid .city-bg-prop-amphitheatre {
+        --city-prop-hit-inset: 12%;
+    }
+
+    #cityDistrictGrid .city-bg-prop-grove-build .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-farm-build .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-lumberyard .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-sawmill .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-cottage .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-coal-mine .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-storage-yard .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-smelter .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-shed .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-university .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-garrison .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-silo .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-bank .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-mine .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-cement .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-foundry .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-library .city-bg-prop-inner,
+    #cityDistrictGrid .city-bg-prop-amphitheatre .city-bg-prop-inner {
+        position: absolute;
+        inset: var(--city-prop-hit-inset);
+        background: transparent;
+        pointer-events: auto;
+    }
+
     #cityDistrictGrid .city-bg-prop-grove-build .city-bg-prop-inner {
-        width: 100%;
-        height: 100%;
         background: transparent;
         transition: transform 0.12s ease;
-        pointer-events: none;
     }
 
     #cityDistrictGrid .city-bg-prop-grove-build.is-clicked .city-bg-prop-inner {
@@ -9261,6 +9313,9 @@ body.research-floating-open #mTabResearch {
     #cityDistrictGrid .city-bg-prop-lumberyard .city-bg-prop-count,
     #cityDistrictGrid .city-bg-prop-sawmill .city-bg-prop-count,
     #cityDistrictGrid .city-bg-prop-cottage .city-bg-prop-count,
+    #cityDistrictGrid .city-bg-prop-coal-mine .city-bg-prop-count,
+    #cityDistrictGrid .city-bg-prop-storage-yard .city-bg-prop-count,
+    #cityDistrictGrid .city-bg-prop-smelter .city-bg-prop-count,
     #cityDistrictGrid .city-bg-prop-shed .city-bg-prop-count,
     #cityDistrictGrid .city-bg-prop-university .city-bg-prop-count,
     #cityDistrictGrid .city-bg-prop-garrison .city-bg-prop-count,
@@ -9296,6 +9351,9 @@ body.research-floating-open #mTabResearch {
     #cityDistrictGrid .city-bg-prop-lumberyard.has-count .city-bg-prop-count,
     #cityDistrictGrid .city-bg-prop-sawmill.has-count .city-bg-prop-count,
     #cityDistrictGrid .city-bg-prop-cottage.has-count .city-bg-prop-count,
+    #cityDistrictGrid .city-bg-prop-coal-mine.has-count .city-bg-prop-count,
+    #cityDistrictGrid .city-bg-prop-storage-yard.has-count .city-bg-prop-count,
+    #cityDistrictGrid .city-bg-prop-smelter.has-count .city-bg-prop-count,
     #cityDistrictGrid .city-bg-prop-shed.has-count .city-bg-prop-count,
     #cityDistrictGrid .city-bg-prop-university.has-count .city-bg-prop-count,
     #cityDistrictGrid .city-bg-prop-garrison.has-count .city-bg-prop-count,
@@ -9424,6 +9482,119 @@ body.research-floating-open #mTabResearch {
     }
 
     #cityDistrictGrid .city-bg-prop-cottage.is-clicked::before {
+        transform: scale(0.92);
+    }
+
+    #cityDistrictGrid .city-bg-prop-coal-mine {
+        position: absolute;
+        z-index: 3;
+        cursor: pointer;
+        pointer-events: auto;
+        user-select: none;
+        -webkit-user-drag: none;
+        touch-action: manipulation;
+        transform-origin: center;
+    }
+
+    #cityDistrictGrid .city-bg-prop-coal-mine::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/archite/meikuang.webp?v=meikuang1) no-repeat center / contain;
+        pointer-events: none;
+        filter: drop-shadow(0 0 10px rgba(10, 10, 10, 0.9))
+            drop-shadow(0 0 22px rgba(0, 0, 0, 0.85));
+        transition: transform 0.12s ease;
+        animation: none;
+    }
+
+    #cityDistrictGrid .city-bg-prop-coal-mine.is-clicked::before {
+        transform: scale(0.92);
+    }
+
+    #cityDistrictGrid .city-bg-prop-storage-yard {
+        position: absolute;
+        z-index: 3;
+        cursor: pointer;
+        pointer-events: auto;
+        user-select: none;
+        -webkit-user-drag: none;
+        touch-action: manipulation;
+        transform-origin: center;
+    }
+
+    #cityDistrictGrid .city-bg-prop-storage-yard::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/archite/huochang.webp?v=huochang1) no-repeat center / contain;
+        pointer-events: none;
+        filter: drop-shadow(0 0 10px rgba(120, 80, 40, 0.9))
+            drop-shadow(0 0 22px rgba(90, 60, 30, 0.75));
+        transition: transform 0.12s ease;
+        animation: none;
+    }
+
+    #cityDistrictGrid .city-bg-prop-storage-yard.is-clicked::before {
+        transform: scale(0.92);
+    }
+
+    #cityDistrictGrid .city-bg-prop-smelter {
+        position: absolute;
+        z-index: 3;
+        cursor: pointer;
+        pointer-events: auto;
+        user-select: none;
+        -webkit-user-drag: none;
+        touch-action: manipulation;
+        transform-origin: center;
+    }
+
+    #cityDistrictGrid .city-bg-prop-smelter::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/archite/yelianchang.webp?v=yelianchang1) no-repeat center / contain;
+        pointer-events: none;
+        filter: drop-shadow(0 0 10px rgba(184, 115, 51, 0.9))
+            drop-shadow(0 0 22px rgba(150, 90, 45, 0.7));
+        transition: transform 0.12s ease;
+        animation: none;
+    }
+
+    #cityDistrictGrid .city-bg-prop-smelter .smelter-gear {
+        position: absolute;
+        left: 50%;
+        top: -0.6rem;
+        width: 1.2rem;
+        height: 1.2rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(1.1rem, -50%);
+        pointer-events: auto;
+        cursor: pointer;
+        filter: drop-shadow(0 0 4px rgba(184, 115, 51, 0.55))
+            drop-shadow(0 0 8px rgba(150, 90, 45, 0.45));
+        opacity: 0.95;
+        z-index: 2;
+    }
+
+    #cityDistrictGrid .city-bg-prop-smelter .smelter-gear svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    #cityDistrictGrid .city-bg-prop-smelter .smelter-gear .gear {
+        fill: #d18b39;
+    }
+
+    #cityDistrictGrid .city-bg-prop-smelter.is-clicked .smelter-gear {
+        transform: translate(1.1rem, -50%) scale(0.92);
+    }
+
+    #cityDistrictGrid .city-bg-prop-smelter.is-clicked::before {
         transform: scale(0.92);
     }
 

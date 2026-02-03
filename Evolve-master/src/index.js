@@ -388,8 +388,10 @@ function syncLeftColumnCollapsedState(){
     if (typeof document === 'undefined'){
         return false;
     }
-    const forceCollapse = global.race?.species === 'protoplasm';
-    const collapsed = forceCollapse || Boolean(global.settings?.leftColumnCollapsed);
+    if (global.settings){
+        global.settings.leftColumnCollapsed = false;
+    }
+    const collapsed = false;
     $('body').addClass('left-column-floating');
     $('body').toggleClass('left-column-collapsed', collapsed);
     syncPinguiculaPortraitPanelPlacement();
@@ -5057,9 +5059,6 @@ export function index(){
         <button id="settings-button" class="button is-small settings-button" type="button" aria-label="${loc('tab_settings')}">
             ${loc('tab_settings')}
         </button>
-        <button id="left-column-toggle" class="button is-small settings-button left-column-toggle" type="button" aria-label="侧栏" aria-pressed="false">
-            侧栏
-        </button>
         <button id="resources-panel-toggle" class="button is-small settings-button resources-panel-toggle" type="button" aria-label="${loc('tab_resources')}" aria-pressed="true">
             ${loc('tab_resources')}
         </button>
@@ -5086,17 +5085,6 @@ export function index(){
         dockResourcesForTab(global.settings.civTabs);
     });
     $(document).off('click.leftColumnToggle', '#left-column-toggle');
-    $(document).on('click.leftColumnToggle', '#left-column-toggle', (event) => {
-        event.preventDefault();
-        if (!global.settings){
-            return;
-        }
-        global.settings.leftColumnCollapsed = !global.settings.leftColumnCollapsed;
-        syncLeftColumnCollapsedState();
-        updateLeftColumnToggle();
-        dockResourcesForTab(global.settings.civTabs);
-        resizeGame();
-    });
     $(document).off('click.resourcesPanelToggle', '#resources-panel-toggle');
     $(document).on('click.resourcesPanelToggle', '#resources-panel-toggle', (event) => {
         const toggle = $(event.currentTarget);

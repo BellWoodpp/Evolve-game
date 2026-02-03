@@ -1,8 +1,11 @@
 export default function Home() {
   return (
-    <div className="h-full min-h-0" id="game">
+    <div
+      className="h-[calc(100vh-var(--topbar-height,0px))] w-full"
+      id="game"
+    >
       <iframe
-        src="/evolve/index.html"
+        src="/evolve-master/index.html"
         title="Evolve Game"
         className="h-full w-full border-0"
       />
