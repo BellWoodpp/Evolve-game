@@ -1,0 +1,348 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Evolve</title>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            --photo-base: /photo/;
+        }
+    </style>
+    <script>
+        (() => {
+            const localHosts = new Set(['localhost', '127.0.0.1', '0.0.0.0']);
+            const isLocal = window.location.protocol === 'file:' || localHosts.has(window.location.hostname);
+            const isGithubPages = window.location.hostname.endsWith('github.io');
+            const getGithubPagesRoot = () => {
+                const parts = window.location.pathname.split('/').filter(Boolean);
+                if (!parts.length) {
+                    return '/';
+                }
+                return `/${parts[0]}/`;
+            };
+            const assetRoot = isGithubPages ? getGithubPagesRoot() : '/';
+            const getLocalRoot = () => {
+                const path = window.location.pathname || '/';
+                if (!path || path === '/') {
+                    return '/';
+                }
+                const slashIndex = path.lastIndexOf('/');
+                if (slashIndex < 0) {
+                    return '/';
+                }
+                return path.slice(0, slashIndex + 1);
+            };
+            const localRoot = getLocalRoot();
+            const localPhotoBases = isLocal
+                ? Array.from(new Set([
+                    `${localRoot}photo/`,
+                    '/photo/',
+                    `${localRoot}evolve/photo/`,
+                    '/evolve/photo/'
+                ]))
+                : [];
+            let photoBase = isLocal
+                ? (localPhotoBases[0] || '/photo/')
+                : (isGithubPages ? `${assetRoot}photo/` : 'https://r2bucket.randompokemongenerators.com/photo/');
+            const voiceBase = isGithubPages
+                ? `${assetRoot}voice/`
+                : 'https://r2bucket.randompokemongenerators.com/voice/';
+            const applyPhotoBase = (value) => {
+                photoBase = value;
+                window.__photoBase = photoBase;
+                document.documentElement.style.setProperty('--photo-base', photoBase);
+            };
+            window.__photoBase = photoBase;
+            window.__voiceBase = voiceBase;
+            document.documentElement.style.setProperty('--photo-base', photoBase);
+
+            const getAssetDerivedPhotoBase = () => {
+                const asset = document.querySelector('link[href*="evolve/overrides.css"], link[href*="evolve/evolve.css"], script[src*="evolve/main.js"]');
+                if (!asset) {
+                    return null;
+                }
+                const raw = asset.getAttribute('href') || asset.getAttribute('src');
+                if (!raw) {
+                    return null;
+                }
+                let url;
+                try {
+                    url = new URL(raw, window.location.href);
+                } catch (err) {
+                    return null;
+                }
+                const marker = '/evolve/';
+                const path = url.pathname || '';
+                const idx = path.lastIndexOf(marker);
+                if (idx >= 0) {
+                    return `${path.slice(0, idx + 1)}photo/`;
+                }
+                return new URL('../photo/', url).pathname;
+            };
+
+            const canLoadPhotoBase = async (candidate) => {
+                if (!candidate) {
+                    return false;
+                }
+                const probe = `${candidate}RNA.webp`;
+                try {
+                    let response = await fetch(probe, { method: 'HEAD' });
+                    if (!response.ok) {
+                        response = await fetch(probe, { method: 'GET' });
+                    }
+                    return response.ok;
+                } catch (err) {
+                    return false;
+                }
+            };
+
+            const ensurePhotoBase = async () => {
+                if (!isLocal || !localPhotoBases.length) {
+                    return;
+                }
+                const candidates = [getAssetDerivedPhotoBase(), ...localPhotoBases];
+                const seen = new Set();
+                for (const candidate of candidates) {
+                    if (!candidate || seen.has(candidate)) {
+                        continue;
+                    }
+                    seen.add(candidate);
+                    if (await canLoadPhotoBase(candidate)) {
+                        applyPhotoBase(candidate);
+                        return;
+                    }
+                }
+            };
+
+            const rewriteUrl = (value) => {
+                if (!value || typeof value !== 'string') {
+                    return value;
+                }
+                const photoPrefix = '/photo/';
+                if (value.startsWith(photoPrefix)) {
+                    return photoBase + value.slice(photoPrefix.length);
+                }
+                const voicePrefix = '/voice/';
+                if (value.startsWith(voicePrefix)) {
+                    return voiceBase + value.slice(voicePrefix.length);
+                }
+                return value;
+            };
+
+            const rewriteSrcset = (value) => {
+                if (!value || typeof value !== 'string') {
+                    return value;
+                }
+                const parts = value.split(',').map((part) => {
+                    const trimmed = part.trim();
+                    if (!trimmed) {
+                        return trimmed;
+                    }
+                    const segments = trimmed.split(/\s+/);
+                    const url = segments.shift();
+                    if (!url) {
+                        return trimmed;
+                    }
+                    const nextUrl = url.startsWith('/photo/')
+                        ? photoBase + url.slice('/photo/'.length)
+                        : url;
+                    return [nextUrl, ...segments].join(' ');
+                });
+                return parts.join(', ');
+            };
+
+            const rewriteElement = (el) => {
+                if (!(el instanceof Element)) {
+                    return;
+                }
+                for (const attr of ['src', 'href', 'poster', 'data-src', 'srcset']) {
+                    if (!el.hasAttribute(attr)) {
+                        continue;
+                    }
+                    const current = el.getAttribute(attr);
+                    const next = attr === 'srcset' ? rewriteSrcset(current) : rewriteUrl(current);
+                    if (next !== current) {
+                        el.setAttribute(attr, next);
+                    }
+                }
+                if (el.hasAttribute('style')) {
+                    const current = el.getAttribute('style');
+                    if (current && current.includes('/photo/')) {
+                        el.setAttribute('style', current.replaceAll('/photo/', photoBase));
+                    }
+                }
+            };
+
+            const rewriteTree = (root) => {
+                rewriteElement(root);
+                if (root instanceof Element) {
+                    root
+                        .querySelectorAll('[src^="/photo/"], [href^="/photo/"], [poster^="/photo/"], [data-src^="/photo/"], [srcset^="/photo/"], [style*="/photo/"], [src^="/voice/"], [href^="/voice/"], [poster^="/voice/"], [data-src^="/voice/"]')
+                        .forEach(rewriteElement);
+                }
+            };
+
+            const rewriteStyleContent = (style) => {
+                if (!(style instanceof HTMLStyleElement)) {
+                    return;
+                }
+                const current = style.textContent;
+                if (current && current.includes('/photo/')) {
+                    style.textContent = current.replaceAll('/photo/', photoBase);
+                }
+            };
+
+            const rewriteStylesheets = async () => {
+                document.querySelectorAll('style').forEach(rewriteStyleContent);
+
+                const links = Array.from(document.querySelectorAll('link[rel="stylesheet"]'));
+                for (const link of links) {
+                    if (link.dataset.photoRewritten === 'true') {
+                        continue;
+                    }
+                    const href = link.getAttribute('href');
+                    if (!href) {
+                        continue;
+                    }
+                    let url;
+                    try {
+                        url = new URL(href, window.location.href);
+                    } catch (err) {
+                        continue;
+                    }
+                    if (url.origin !== window.location.origin) {
+                        continue;
+                    }
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) {
+                            continue;
+                        }
+                        const cssText = await response.text();
+                        if (!cssText.includes('/photo/')) {
+                            continue;
+                        }
+                        const style = document.createElement('style');
+                        style.textContent = cssText.replaceAll('/photo/', photoBase);
+                        style.dataset.photoRewritten = 'true';
+                        link.dataset.photoRewritten = 'true';
+                        link.insertAdjacentElement('afterend', style);
+                    } catch (err) {}
+                }
+            };
+
+            const patchAudio = () => {
+                if (!window.Audio || window.Audio.__evolvePatched) {
+                    return;
+                }
+                const OriginalAudio = window.Audio;
+                const PatchedAudio = function patchedAudio(src) {
+                    return new OriginalAudio(rewriteUrl(src));
+                };
+                PatchedAudio.prototype = OriginalAudio.prototype;
+                PatchedAudio.__evolvePatched = true;
+                window.Audio = PatchedAudio;
+            };
+            patchAudio();
+
+            const observer = new MutationObserver((mutations) => {
+                for (const mutation of mutations) {
+                    if (mutation.type === 'attributes') {
+                        rewriteElement(mutation.target);
+                    } else if (mutation.type === 'childList') {
+                        mutation.addedNodes.forEach(rewriteTree);
+                    }
+                }
+            });
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const initRewrite = async () => {
+                    await ensurePhotoBase();
+                    rewriteTree(document.documentElement);
+                    rewriteStylesheets();
+                    observer.observe(document.documentElement, {
+                        attributes: true,
+                        childList: true,
+                        subtree: true,
+                        attributeFilter: ['src', 'href', 'poster', 'data-src', 'srcset', 'style']
+                    });
+                };
+                initRewrite();
+            });
+        })();
+    </script>
+    <link rel="icon" href="evolved-light.ico" type="images/x-icon" media="(prefers-color-scheme:dark)">
+    <link rel="icon" href="evolved.ico" type="images/x-icon" media="(prefers-color-scheme:light)">
+    <link rel="icon" href="evolved.ico" type="images/x-icon" media="(prefers-color-scheme:no-preference)">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
+    <link rel="stylesheet" href="lib/buefy.min.0.9.22.css">
+    <link rel="stylesheet" type="text/css" href="lib/weather-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="evolve/evolve.css">
+    <link rel="stylesheet" type="text/css" href="evolve/overrides.css">
+    <script src="https://unpkg.com/jquery@3.6.3/dist/jquery.min.js" integrity="sha384-Ft/vb48LwsAEtgltj7o+6vtS2esTU9PCpDqcXs4OCVQFZu5BqprHtUCZ4kjK+bpE" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@2.7.14/dist/vue.min.js" integrity="sha384-05dHfbm/L0COkFLQ5ghEDllrtj0kD1/46h3bAPxuPjWq9/IDglEo6RtZefYkYfpk" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/buefy@0.9.22/dist/buefy.min.js" integrity="sha384-SsYfCnxxJJlTFm+xZU2q9KLeF0LureHv8EYGBhKyFNiAGP5ufOhhryh1fKVdq6N7" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sortablejs@1.10.2/Sortable.min.js" integrity="sha384-6qM1TfKo1alBw3Uw9AWXnaY5h0G3ScEjxtUm4TwRJm7HRmDX8UfiDleTAEEg5vIe" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/chart.js@3.8.2/dist/chart.min.js" integrity="sha384-z7c1KnSCkMpfoib43Lq1v2pokQC8cdqBWmH2qiyH2KkmNv60hACtZUjoCEkp1Y08" crossorigin="anonymous"></script>
+    <script src="lib/lz-string.min.js"></script>
+    <script>
+        (() => {
+            const SPEED_KEY = 'evolveSpeedMultiplier';
+            try {
+                window.localStorage.removeItem(SPEED_KEY);
+            } catch (err) {}
+            window.__evolveSpeedMultiplier = 1;
+            window.__setEvolveSpeed = () => {
+                window.__evolveSpeedMultiplier = 1;
+                try {
+                    window.localStorage.removeItem(SPEED_KEY);
+                } catch (err) {}
+            };
+        })();
+    </script>
+    <script src="evolve/main.js" type="module"></script>
+</head>
+<body>
+    <style>
+        .loading {
+            text-align: center;
+            margin-top: 10rem;
+        }
+        .lds-dual-ring {
+            display: inline-block;
+            width: 64px;
+            height: 64px;
+        }
+        .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 5rem;
+            height: 5rem;
+            margin: 1px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            border-color: #fff transparent #fff transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+            }
+            @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div class="loading"><div class="lds-dual-ring"></div></div>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPC46V71CB"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-CPC46V71CB');
+    </script>
+</body>
+</html>

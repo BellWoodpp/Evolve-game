@@ -1,0 +1,14 @@
+{
+  "race_selector": {
+    "name": "种族选择",
+    "desc": "选择你想要的种族"
+  },
+  "race_selector_label": "种族",
+  "random_race": "随机种族",
+  "select_race": "选择种族",
+  "race_available": "可用种族",
+  "race_selected": "当前种族"
+  },
+  "race_selector_placeholder": "选择种族...",
+  "random_race_placeholder": "随机种族..."
+}

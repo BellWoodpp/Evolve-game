@@ -1,0 +1,2533 @@
+.main .content .action a.button,
+.main .content .action .oldTech,
+.modal .action a.button,
+.modal .action .oldTech {
+  width: 12rem;
+  margin: 0.375rem 0.25rem 0 0;
+}
+
+.main .content .action .oldTech,
+.modal .action .oldTech {
+  margin: 0 0.25rem 0 0;
+}
+
+.main .content #oldTech .tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.5rem;
+}
+
+.main .content #oldTech .tech > div:first-child {
+  flex: 0 0 100%;
+}
+
+.main .content #oldTech .tech .action,
+.main .content #oldTech .tech .action .oldTech {
+  width: calc(33.333% - 0.5rem);
+  margin: 0;
+}
+
+.main .content .action .insufficient-badge,
+.modal .action .insufficient-badge {
+  position: absolute;
+  left: 0.35rem;
+  bottom: 0.35rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 9999px;
+  background: rgba(231, 76, 60, 0.9);
+  color: #fff;
+  font-size: 0.65rem;
+  line-height: 1;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  pointer-events: none;
+}
+
+.main #buildQueue {
+  display: none;
+}
+
+.main #resQueue {
+  display: none;
+}
+
+.main .content .action,
+.modal .action {
+  position: relative;
+}
+
+.main .content .action .queue-badge,
+.modal .action .queue-badge {
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 1.1rem;
+  padding: 0.15rem 0.35rem;
+  border-radius: 9999px;
+  background: rgba(241, 196, 15, 0.95);
+  color: #111;
+  font-size: 0.7rem;
+  line-height: 1;
+  text-align: center;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+}
+
+.main .content .action .queue-badge[data-queue-type="research"],
+.modal .action .queue-badge[data-queue-type="research"] {
+  min-width: 1.4rem;
+  min-height: 1.2rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.78rem;
+}
+
+.main .content .action .queue-badge-time,
+.modal .action .queue-badge-time {
+  font-size: 0.6rem;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.main .queueCol.has-civic-government,
+.modal .queueCol.has-civic-government {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: calc(100vh - 2.45rem);
+  overflow-y: auto;
+  padding-bottom: 0.5rem;
+}
+
+.main .queueCol.is-hidden,
+.modal .queueCol.is-hidden {
+  display: none !important;
+  flex: 0 0 0 !important;
+  width: 0 !important;
+  max-width: 0 !important;
+  min-width: 0 !important;
+}
+
+.main .queueCol.has-civic-government .msgQueue.right,
+.modal .queueCol.has-civic-government .msgQueue.right {
+  height: auto;
+  max-height: 40vh;
+}
+
+.main .queueCol #governmentFloatingPanel,
+.modal .queueCol #governmentFloatingPanel {
+  position: relative;
+  width: 100%;
+  max-width: none;
+}
+
+@media (min-width: 1024px) {
+  .main .columns.is-gapless {
+    flex-wrap: nowrap;
+  }
+
+  .main #civics {
+    grid-template-columns: minmax(20rem, 26rem) minmax(0, 1fr);
+  }
+
+  .main #civics > .jobList #jobs {
+    row-gap: 0.6rem;
+  }
+
+  .main .leftColumn {
+    flex: 0 0 min(24rem, 38vw);
+    max-width: min(24rem, 38vw);
+  }
+
+  .main #mainColumn {
+    flex: 1 1 auto;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .main #queueColumn {
+    flex: 0 0 min(20rem, 28vw);
+    max-width: min(20rem, 28vw);
+  }
+}
+
+.main #militaryFloatingPanel,
+.modal #militaryFloatingPanel {
+  position: relative;
+  max-width: min(22rem, 90vw);
+}
+
+.main #militaryFloatingPanel.military-floating,
+.modal #militaryFloatingPanel.military-floating {
+  position: fixed;
+  right: 0.5rem;
+  top: 8rem;
+  width: min(22rem, 90vw);
+  max-height: 70vh;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: solid 0.0625rem rgba(255, 255, 255, 0.08);
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.main #militaryFloatingPanel.military-floating.is-dragging,
+.modal #militaryFloatingPanel.military-floating.is-dragging {
+  cursor: move;
+  opacity: 0.95;
+}
+
+.main #militaryFloatingHeader,
+.modal #militaryFloatingHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  margin: -0.5rem -0.6rem 0.35rem;
+  background: rgba(0, 0, 0, 0.55);
+  border-bottom: solid 0.0625rem rgba(255, 255, 255, 0.08);
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.main #powerGridFloatingPanel,
+.modal #powerGridFloatingPanel {
+  position: relative;
+  max-width: min(28rem, 92vw);
+}
+
+.main #powerGridFloatingPanel.power-grid-floating,
+.modal #powerGridFloatingPanel.power-grid-floating {
+  position: fixed;
+  right: 0.5rem;
+  top: 10rem;
+  width: min(28rem, 92vw);
+  max-height: 70vh;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: solid 0.0625rem rgba(255, 255, 255, 0.08);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+}
+
+.main #powerGridFloatingPanel.power-grid-floating.is-dragging,
+.modal #powerGridFloatingPanel.power-grid-floating.is-dragging {
+  cursor: move;
+  opacity: 0.95;
+}
+
+.main #powerGridFloatingHeader,
+.modal #powerGridFloatingHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  margin: -0.5rem -0.6rem 0.35rem;
+  background: rgba(0, 0, 0, 0.55);
+  border-bottom: solid 0.0625rem rgba(255, 255, 255, 0.08);
+  cursor: move;
+  user-select: none;
+  touch-action: none;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.main #powerGridFloatingContent,
+.modal #powerGridFloatingContent {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.main .resTabs > .tabs,
+.modal .resTabs > .tabs {
+  justify-content: flex-start;
+}
+
+.main #civilSplitMain .resTabs > .tabs,
+.modal #civilSplitMain .resTabs > .tabs {
+  position: relative;
+  justify-content: center;
+}
+
+.main #civilSplitMain .resTabs > .tabs > ul,
+.modal #civilSplitMain .resTabs > .tabs > ul {
+  border-bottom: none;
+}
+
+.main #civilSplitMain .resTabs > .tabs::after,
+.modal #civilSplitMain .resTabs > .tabs::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 90%;
+  height: 0.1rem;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0), rgba(212, 175, 55, 0.7) 20%, rgba(212, 175, 55, 0.7) 80%, rgba(212, 175, 55, 0));
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.main .resTabs > .tabs > ul,
+.modal .resTabs > .tabs > ul {
+  flex: 0 0 auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.main #mainTabs > nav.tabs,
+.modal #mainTabs > nav.tabs,
+.main #mainTabs > .tabs,
+.modal #mainTabs > .tabs {
+  position: relative;
+}
+
+body.left-column-collapsed .main #mainTabs > nav.tabs,
+body.left-column-collapsed .main #mainTabs > .tabs {
+  overflow: visible;
+}
+
+.main #mainTabs > nav.tabs > ul,
+.modal #mainTabs > nav.tabs > ul,
+.main #mainTabs > .tabs > ul,
+.modal #mainTabs > .tabs > ul {
+  border-bottom: none;
+  justify-content: center;
+}
+
+.main #mainTabs > nav.tabs > ul > li.main-tab-resources,
+.modal #mainTabs > nav.tabs > ul > li.main-tab-resources,
+.main #mainTabs > .tabs > ul > li.main-tab-resources,
+.modal #mainTabs > .tabs > ul > li.main-tab-resources {
+  display: none;
+}
+
+.main #mainTabs > nav.tabs > ul > li.main-tab-civic,
+.modal #mainTabs > nav.tabs > ul > li.main-tab-civic,
+.main #mainTabs > .tabs > ul > li.main-tab-civic,
+.modal #mainTabs > .tabs > ul > li.main-tab-civic {
+  display: none;
+}
+
+.main #mainTabs:not(.evolution-stage) > nav.tabs > ul > li.main-tab-evolution,
+.modal #mainTabs:not(.evolution-stage) > nav.tabs > ul > li.main-tab-evolution,
+.main #mainTabs:not(.evolution-stage) > .tabs > ul > li.main-tab-evolution,
+.modal #mainTabs:not(.evolution-stage) > .tabs > ul > li.main-tab-evolution {
+  display: none;
+}
+
+.main #mainTabs > nav.tabs::after,
+.modal #mainTabs > nav.tabs::after,
+.main #mainTabs > .tabs::after,
+.modal #mainTabs > .tabs::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.1rem;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0), rgba(212, 175, 55, 0.7) 20%, rgba(212, 175, 55, 0.7) 80%, rgba(212, 175, 55, 0));
+  border-radius: 999px;
+  pointer-events: none;
+  transform: none;
+}
+
+body.left-column-collapsed .main #mainTabs > nav.tabs::after,
+body.left-column-collapsed .main #mainTabs > .tabs::after {
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+}
+
+.topBar,
+.promoBar {
+  height: 2.4rem;
+  line-height: 2.4rem;
+}
+
+.topBar {
+  align-items: center;
+}
+
+.main {
+  margin-top: 2.4rem;
+  padding-top: 0;
+}
+
+.main .leftColumn {
+  height: calc(100vh - 3.65rem);
+}
+
+.main #mainColumn .sticky,
+.main #mainColumn .vscroll {
+  top: 2.6rem;
+}
+
+.main #resources.resources-top .resource,
+.modal #resources.resources-top .resource {
+  padding: 0.1rem 0.25rem 0.15rem;
+}
+
+.main #resources.resources-top .resource > div,
+.modal #resources.resources-top .resource > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.main #resources.resources-top .resource .res,
+.modal #resources.resources-top .resource .res {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.main #resources.resources-top .resource .count,
+.modal #resources.resources-top .resource .count {
+  margin-left: auto;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+
+.main #resources.resources-top .resource .diff,
+.modal #resources.resources-top .resource .diff {
+  margin-left: 0.35rem;
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+
+#resources:not(.resources-top):not(.resources-camp):not(.resources-civics) {
+  display: flex !important;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+#topResourcesMount.top-resources-floating {
+  width: min(36rem, 90vw);
+}
+
+#topResourcesMount.top-resources-floating .resources.resources-top {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#topResourcesMount.top-resources-floating .resources.resources-top .resource {
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.main .content .action .queue-badge-time--ready,
+.modal .action .queue-badge-time--ready {
+  color: #2ecc71;
+}
+
+.main .content .action .queue-badge-time--never,
+.modal .action .queue-badge-time--never {
+  color: #e74c3c;
+}
+
+.main .content .action.show-insufficient-badge .insufficient-badge,
+.modal .action.show-insufficient-badge .insufficient-badge {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.main #evolution .evolution-divider,
+.modal #evolution .evolution-divider {
+  display: block;
+  width: 100%;
+  height: 0;
+  border-top: 0.125rem solid #d4af37;
+  margin: 0.75rem 0 0.5rem;
+  opacity: 0.9;
+}
+
+.main .leftColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.main .content #mTabCivil .civil-split {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.main .content #mTabCivil .civil-split-main,
+.main .content #mTabCivil .civil-split-civic {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+
+body.left-column-collapsed .main > .columns > .leftColumn {
+  display: none;
+}
+
+.main .leftColumn #race {
+  display: none;
+}
+
+body.race-pinguicula .leftColumn #race {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  position: fixed;
+  left: 1rem;
+  top: 3rem;
+  transform: none;
+  z-index: 100002;
+  width: min(16rem, calc(100vw - 2rem));
+  margin: 0;
+}
+
+body.race-pinguicula .leftColumn #race .morale-contain,
+body.race-pinguicula .leftColumn #race .power {
+  text-align: left;
+}
+
+body.race-pinguicula .leftColumn #race #pinguiculaPortraitPanel.pinguicula-portrait-floating {
+  position: static;
+  left: auto;
+  top: auto;
+  right: auto;
+  bottom: auto;
+  transform: none;
+  cursor: default;
+  touch-action: auto;
+}
+
+body.race-pinguicula .leftColumn #race #pinguiculaPortraitPanel {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+body.race-pinguicula .leftColumn #race #pinguiculaPortraitPanel .race-population {
+  margin-top: 0;
+  justify-content: flex-start;
+}
+
+body.race-pinguicula .leftColumn #race > :not(#pinguiculaPortraitPanel):not(.morale-contain):not(.power) {
+  display: none;
+}
+
+body.left-column-collapsed .main > .columns > #mainColumn {
+  flex: 1 1 100%;
+  max-width: 100%;
+  width: 100%;
+}
+
+#resources.resources-floating {
+  top: 2.8rem;
+}
+
+#resources.resources-floating .resource.showBar {
+  background-image: none !important;
+}
+
+#resources.resources-floating .resource.showBar::after {
+  display: none !important;
+}
+
+.main .content #city-dist-utility {
+  background: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/env/service&utility-sectors.webp) no-repeat center;
+  background-size: cover;
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.main .content #city-dist-utility h3.name {
+  background: transparent;
+  padding: 0;
+  margin: 0 0 0.5rem 0;
+  min-height: 0;
+  text-align: left;
+  color: #fff;
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.85),
+    0 2px 0 rgba(0, 0, 0, 0.75),
+    0 3px 0 rgba(0, 0, 0, 0.65),
+    0 4px 6px rgba(0, 0, 0, 0.55);
+}
+
+.main .content #tech-bayer_process.action a.button,
+.main .content #tech-steel.action a.button,
+.main .content #tech-dynamite.action a.button,
+.main .content #tech-assistant.action a.button,
+.main .content #tech-hospital.action a.button,
+.main .content #tech-black_powder.action a.button,
+.main .content #tech-carpentry.action a.button,
+.main .content #tech-flintlock_rifle.action a.button,
+.main .content #tech-steel_rebar.action a.button,
+.main .content #tech-steel_vault.action a.button,
+.main .content #tech-large_trades.action a.button,
+.main .content #tech-reinforced_crates.action a.button,
+.main .content #tech-mad_science.action a.button,
+.main .content #tech-steel_pickaxe.action a.button,
+.main .content #tech-steel_axes.action a.button,
+.main .content #tech-steel_containers.action a.button,
+.main .content #tech-steel_saw.action a.button,
+.main .content #tech-steel_beams.action a.button,
+.main .content #tech-steel_hoe.action a.button,
+.main .content #tech-blast_furnace.action a.button,
+.main .content #tech-barns.action a.button,
+.main .content #tech-master_craftsman.action a.button,
+.main .content #tech-espionage.action a.button,
+.main .content #tech-spy_training.action a.button,
+.main .content #tech-magic.action a.button,
+.main .content #tech-boot_camp.action a.button,
+.main .content #tech-home_safe.action a.button,
+.main .content #tech-electricity.action a.button,
+.main .content #tech-diplomacy.action a.button,
+.main .content #tech-windmill.action a.button,
+.main .content #tech-eebonds.action a.button,
+.main .content #city-hospital.action a.button,
+.main .content #city-boot_camp.action a.button,
+.main .content #city-trade.action a.button,
+.main .content #city-warehouse.action a.button,
+.main .content #city-sawmill.action a.button,
+.main .content #city-smelter.action a.button,
+.main .content #city-metal_refinery.action a.button,
+.main .content #city-coal_mine.action a.button,
+.main .content #city-wardenclyffe.action a.button,
+.main .content #city-mill.action a.button,
+.modal #tech-bayer_process.action a.button,
+.modal #tech-steel.action a.button,
+.modal #tech-dynamite.action a.button,
+.modal #tech-assistant.action a.button,
+.modal #tech-hospital.action a.button,
+.modal #tech-black_powder.action a.button,
+.modal #tech-carpentry.action a.button,
+.modal #tech-flintlock_rifle.action a.button,
+.modal #tech-steel_rebar.action a.button,
+.modal #tech-steel_vault.action a.button,
+.modal #tech-large_trades.action a.button,
+.modal #tech-reinforced_crates.action a.button,
+.modal #tech-mad_science.action a.button,
+.modal #tech-steel_pickaxe.action a.button,
+.modal #tech-steel_axes.action a.button,
+.modal #tech-steel_containers.action a.button,
+.modal #tech-steel_saw.action a.button,
+.modal #tech-steel_beams.action a.button,
+.modal #tech-steel_hoe.action a.button,
+.modal #tech-blast_furnace.action a.button,
+.modal #tech-barns.action a.button,
+.modal #tech-master_craftsman.action a.button,
+.modal #tech-espionage.action a.button,
+.modal #tech-spy_training.action a.button,
+.modal #tech-magic.action a.button,
+.modal #tech-boot_camp.action a.button,
+.modal #tech-home_safe.action a.button,
+.modal #tech-electricity.action a.button,
+.modal #tech-diplomacy.action a.button,
+.modal #tech-windmill.action a.button,
+.modal #tech-eebonds.action a.button,
+.modal #city-hospital.action a.button,
+.modal #city-boot_camp.action a.button,
+.modal #city-trade.action a.button,
+.modal #city-warehouse.action a.button,
+.modal #city-sawmill.action a.button,
+.modal #city-smelter.action a.button,
+.modal #city-metal_refinery.action a.button,
+.modal #city-coal_mine.action a.button,
+.modal #city-wardenclyffe.action a.button,
+.modal #city-mill.action a.button {
+  background: transparent no-repeat center;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #2ecc71;
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.35);
+  border-radius: 9999px;
+  min-height: 4.5rem;
+  min-width: 6rem;
+  padding: 0.1rem;
+  transform-origin: center;
+  transition: transform 0.08s ease, filter 0.08s ease;
+}
+
+.main .content #tech-apartment.action a.button,
+.main .content #tech-mine_conveyor.action a.button,
+.main .content #tech-radio.action a.button,
+.main .content #tech-socialist.action a.button,
+.main .content #tech-republic.action a.button,
+.main .content #tech-cranes.action a.button,
+.main .content #tech-brickworks.action a.button,
+.main .content #tech-bessemer_process.action a.button,
+.main .content #tech-jackhammer.action a.button,
+.main .content #tech-gantry_crane.action a.button,
+.main .content #tech-industrialization.action a.button,
+.main .content #tech-swiss_banking.action a.button,
+.main .content #tech-spy_gadgets.action a.button,
+.modal #tech-apartment.action a.button,
+.modal #tech-mine_conveyor.action a.button,
+.modal #tech-radio.action a.button,
+.modal #tech-socialist.action a.button,
+.modal #tech-republic.action a.button,
+.modal #tech-cranes.action a.button,
+.modal #tech-brickworks.action a.button,
+.modal #tech-bessemer_process.action a.button,
+.modal #tech-jackhammer.action a.button,
+.modal #tech-gantry_crane.action a.button,
+.modal #tech-industrialization.action a.button,
+.modal #tech-swiss_banking.action a.button,
+.modal #tech-spy_gadgets.action a.button {
+  background: transparent no-repeat center;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #2ecc71;
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.35);
+  border-radius: 9999px;
+  min-height: 4.5rem;
+  min-width: 6rem;
+  padding: 0.1rem;
+  transform-origin: center;
+  transition: transform 0.08s ease, filter 0.08s ease;
+}
+
+.main .content #tech-bayer_process.action a.button,
+.modal #tech-bayer_process.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/bayer-process.webp);
+}
+
+.main .content #tech .action a.button .aTitle,
+.modal #tech .action a.button .aTitle {
+  color: transparent;
+  text-shadow: none;
+}
+
+.main .content #tech .action a.button:hover .aTitle,
+.main .content #tech .action a.button:focus-visible .aTitle,
+.main .content #tech .action a.button:active .aTitle,
+.modal #tech .action a.button:hover .aTitle,
+.modal #tech .action a.button:focus-visible .aTitle,
+.modal #tech .action a.button:active .aTitle {
+  color: #f8f8f8;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.85);
+}
+
+.main .content #tech-spy_gadgets.action a.button,
+.modal #tech-spy_gadgets.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/spy-gadgets.webp);
+}
+
+.main .content #tech-apartment.action a.button,
+.modal #tech-apartment.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/apartment.webp);
+}
+
+.main .content #tech-mine_conveyor.action a.button,
+.modal #tech-mine_conveyor.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/mine-conveyor-belts.webp);
+}
+
+.main .content #tech-radio.action a.button,
+.modal #tech-radio.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/radio.webp);
+}
+
+.main .content #tech-socialist.action a.button,
+.modal #tech-socialist.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/socialist.webp);
+}
+
+.main .content #tech-republic.action a.button,
+.modal #tech-republic.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/republic.webp);
+}
+
+.main .content #tech-cranes.action a.button,
+.modal #tech-cranes.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/cranes.webp);
+}
+
+.main .content #tech-brickworks.action a.button,
+.modal #tech-brickworks.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/brickworks.webp);
+}
+
+.main .content #tech-bessemer_process.action a.button,
+.modal #tech-bessemer_process.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/bessemer-process.webp);
+}
+
+.main .content #tech-jackhammer.action a.button,
+.modal #tech-jackhammer.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/jackhammer.webp);
+}
+
+.main .content #tech-gantry_crane.action a.button,
+.modal #tech-gantry_crane.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/gantry-cranes.webp);
+}
+
+.main .content #tech-industrialization.action a.button,
+.modal #tech-industrialization.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/industrialization.webp);
+}
+
+.main .content #tech-swiss_banking.action a.button,
+.modal #tech-swiss_banking.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/swiss-banking.webp);
+}
+
+.main .content #tech-steel.action a.button,
+.modal #tech-steel.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/crucible-steel.webp);
+}
+
+.main .content #tech-dynamite.action a.button,
+.modal #tech-dynamite.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/dynamite.webp);
+}
+
+.main .content #tech-assistant.action a.button,
+.modal #tech-assistant.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/personal-assistant.webp);
+}
+
+.main .content #tech-hospital.action a.button,
+.modal #tech-hospital.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/hospital.webp);
+}
+
+.main .content #tech-black_powder.action a.button,
+.modal #tech-black_powder.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/black-powder.webp);
+}
+
+.main .content #tech-carpentry.action a.button,
+.modal #tech-carpentry.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/carpentry.webp);
+}
+
+.main .content #tech-flintlock_rifle.action a.button,
+.modal #tech-flintlock_rifle.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/flintlock-rifle.webp);
+}
+
+.main .content #tech-steel_rebar.action a.button,
+.modal #tech-steel_rebar.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/stell-rebar.webp);
+}
+
+.main .content #tech-steel_vault.action a.button,
+.modal #tech-steel_vault.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/steel-vault.webp);
+}
+
+.main .content #tech-large_trades.action a.button,
+.modal #tech-large_trades.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/large-volume-trading.webp);
+}
+
+.main .content #tech-reinforced_crates.action a.button,
+.modal #tech-reinforced_crates.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/reinforced-crates.webp);
+}
+
+.main .content #tech-mad_science.action a.button,
+.modal #tech-mad_science.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/mad-science.webp);
+}
+
+.main .content #tech-steel_pickaxe.action a.button,
+.modal #tech-steel_pickaxe.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/steel-pickaxe.webp);
+}
+
+.main .content #tech-steel_axes.action a.button,
+.modal #tech-steel_axes.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/steel-axe.webp);
+}
+
+.main .content #tech-steel_containers.action a.button,
+.modal #tech-steel_containers.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/steel-containers.webp);
+}
+
+.main .content #tech-steel_saw.action a.button,
+.modal #tech-steel_saw.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/steel-saws.webp);
+}
+
+.main .content #tech-steel_beams.action a.button,
+.modal #tech-steel_beams.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/steel-beams.webp);
+}
+
+.main .content #tech-steel_hoe.action a.button,
+.modal #tech-steel_hoe.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/steel-hoes.webp);
+}
+
+.main .content #tech-blast_furnace.action a.button,
+.modal #tech-blast_furnace.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/blast-furnace.webp);
+}
+
+.main .content #tech-barns.action a.button,
+.modal #tech-barns.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/barns.webp);
+}
+
+.main .content #tech-master_craftsman.action a.button,
+.modal #tech-master_craftsman.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/master-crafter.webp);
+}
+
+.main .content #tech-espionage.action a.button,
+.modal #tech-espionage.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/espionage.webp);
+}
+
+.main .content #tech-spy_training.action a.button,
+.modal #tech-spy_training.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/spy-training-facility.webp);
+}
+
+.main .content #tech-magic.action a.button,
+.modal #tech-magic.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/techno-wizards.webp);
+}
+
+.main .content #tech-boot_camp.action a.button,
+.modal #tech-boot_camp.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/boot-camp.webp);
+}
+
+.main .content #tech-home_safe.action a.button,
+.modal #tech-home_safe.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/house-safe.webp);
+}
+
+.main .content #tech-electricity.action a.button,
+.modal #tech-electricity.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/electricity.webp);
+}
+
+.main .content #tech-diplomacy.action a.button,
+.modal #tech-diplomacy.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/diplomacy.webp);
+}
+
+.main .content #tech-windmill.action a.button,
+.modal #tech-windmill.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/windmill.webp);
+}
+
+.main .content #tech-eebonds.action a.button,
+.modal #tech-eebonds.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/series-ee-bonds.webp);
+}
+
+.main .content #city-hospital.action a.button,
+.modal #city-hospital.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/military-complex/hospital.webp);
+}
+
+.main .content #city-boot_camp.action a.button,
+.modal #city-boot_camp.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/military-complex/boot-camp.webp);
+}
+
+.main .content #city-trade.action a.button,
+.modal #city-trade.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/trade-district/trade-post.webp);
+}
+
+.main .content #city-warehouse.action a.button,
+.modal #city-warehouse.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/trade-district/container-port.webp);
+}
+
+.main .content #city-sawmill.action a.button,
+.modal #city-sawmill.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/industrial-park/sawmills.webp);
+}
+
+.main .content #city-smelter.action a.button,
+.modal #city-smelter.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/industrial-park/smelter.webp);
+}
+
+.main .content #city-metal_refinery.action a.button,
+.modal #city-metal_refinery.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/industrial-park/metal-refinery.webp);
+}
+
+.main .content #city-coal_mine.action a.button,
+.modal #city-coal_mine.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/industrial-park/coal-mine.webp);
+}
+
+.main .content #city-wardenclyffe.action a.button,
+.modal #city-wardenclyffe.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/secience-sector/wardenclyffe.webp);
+}
+
+.main .content #city-mill.action a.button,
+.modal #city-mill.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/service&utility-sectors/mill.webp);
+}
+
+.main .content #tech-bayer_process.action a.button .aTitle,
+.main .content #tech-steel.action a.button .aTitle,
+.main .content #tech-dynamite.action a.button .aTitle,
+.main .content #tech-assistant.action a.button .aTitle,
+.main .content #tech-hospital.action a.button .aTitle,
+.main .content #tech-black_powder.action a.button .aTitle,
+.main .content #tech-carpentry.action a.button .aTitle,
+.main .content #tech-flintlock_rifle.action a.button .aTitle,
+.main .content #tech-steel_rebar.action a.button .aTitle,
+.main .content #tech-steel_vault.action a.button .aTitle,
+.main .content #tech-large_trades.action a.button .aTitle,
+.main .content #tech-reinforced_crates.action a.button .aTitle,
+.main .content #tech-mad_science.action a.button .aTitle,
+.main .content #tech-steel_pickaxe.action a.button .aTitle,
+.main .content #tech-steel_axes.action a.button .aTitle,
+.main .content #tech-steel_containers.action a.button .aTitle,
+.main .content #tech-steel_saw.action a.button .aTitle,
+.main .content #tech-steel_beams.action a.button .aTitle,
+.main .content #tech-steel_hoe.action a.button .aTitle,
+.main .content #tech-blast_furnace.action a.button .aTitle,
+.main .content #tech-barns.action a.button .aTitle,
+.main .content #tech-master_craftsman.action a.button .aTitle,
+.main .content #tech-espionage.action a.button .aTitle,
+.main .content #tech-spy_training.action a.button .aTitle,
+.main .content #tech-magic.action a.button .aTitle,
+.main .content #tech-boot_camp.action a.button .aTitle,
+.main .content #tech-home_safe.action a.button .aTitle,
+.main .content #tech-electricity.action a.button .aTitle,
+.main .content #tech-diplomacy.action a.button .aTitle,
+.main .content #tech-windmill.action a.button .aTitle,
+.main .content #tech-eebonds.action a.button .aTitle,
+.main .content #city-hospital.action a.button .aTitle,
+.main .content #city-boot_camp.action a.button .aTitle,
+.main .content #city-trade.action a.button .aTitle,
+.main .content #city-warehouse.action a.button .aTitle,
+.main .content #city-sawmill.action a.button .aTitle,
+.main .content #city-smelter.action a.button .aTitle,
+.main .content #city-metal_refinery.action a.button .aTitle,
+.main .content #city-coal_mine.action a.button .aTitle,
+.main .content #city-wardenclyffe.action a.button .aTitle,
+.main .content #city-mill.action a.button .aTitle,
+.modal #tech-bayer_process.action a.button .aTitle,
+.modal #tech-steel.action a.button .aTitle,
+.modal #tech-dynamite.action a.button .aTitle,
+.modal #tech-assistant.action a.button .aTitle,
+.modal #tech-hospital.action a.button .aTitle,
+.modal #tech-black_powder.action a.button .aTitle,
+.modal #tech-carpentry.action a.button .aTitle,
+.modal #tech-flintlock_rifle.action a.button .aTitle,
+.modal #tech-steel_rebar.action a.button .aTitle,
+.modal #tech-steel_vault.action a.button .aTitle,
+.modal #tech-large_trades.action a.button .aTitle,
+.modal #tech-reinforced_crates.action a.button .aTitle,
+.modal #tech-mad_science.action a.button .aTitle,
+.modal #tech-steel_pickaxe.action a.button .aTitle,
+.modal #tech-steel_axes.action a.button .aTitle,
+.modal #tech-steel_containers.action a.button .aTitle,
+.modal #tech-steel_saw.action a.button .aTitle,
+.modal #tech-steel_beams.action a.button .aTitle,
+.modal #tech-steel_hoe.action a.button .aTitle,
+.modal #tech-blast_furnace.action a.button .aTitle,
+.modal #tech-barns.action a.button .aTitle,
+.modal #tech-master_craftsman.action a.button .aTitle,
+.modal #tech-espionage.action a.button .aTitle,
+.modal #tech-spy_training.action a.button .aTitle,
+.modal #tech-magic.action a.button .aTitle,
+.modal #tech-boot_camp.action a.button .aTitle,
+.modal #tech-home_safe.action a.button .aTitle,
+.modal #tech-electricity.action a.button .aTitle,
+.modal #tech-diplomacy.action a.button .aTitle,
+.modal #tech-windmill.action a.button .aTitle,
+.modal #tech-eebonds.action a.button .aTitle,
+.modal #city-hospital.action a.button .aTitle,
+.modal #city-boot_camp.action a.button .aTitle,
+.modal #city-trade.action a.button .aTitle,
+.modal #city-warehouse.action a.button .aTitle,
+.modal #city-sawmill.action a.button .aTitle,
+.modal #city-smelter.action a.button .aTitle,
+.modal #city-metal_refinery.action a.button .aTitle,
+.modal #city-coal_mine.action a.button .aTitle,
+.modal #city-wardenclyffe.action a.button .aTitle,
+.modal #city-mill.action a.button .aTitle {
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.main .content #tech-bayer_process.action a.button:hover .aTitle,
+.main .content #tech-steel.action a.button:hover .aTitle,
+.main .content #tech-dynamite.action a.button:hover .aTitle,
+.main .content #tech-assistant.action a.button:hover .aTitle,
+.main .content #tech-hospital.action a.button:hover .aTitle,
+.main .content #tech-black_powder.action a.button:hover .aTitle,
+.main .content #tech-carpentry.action a.button:hover .aTitle,
+.main .content #tech-flintlock_rifle.action a.button:hover .aTitle,
+.main .content #tech-steel_rebar.action a.button:hover .aTitle,
+.main .content #tech-steel_vault.action a.button:hover .aTitle,
+.main .content #tech-large_trades.action a.button:hover .aTitle,
+.main .content #tech-reinforced_crates.action a.button:hover .aTitle,
+.main .content #tech-mad_science.action a.button:hover .aTitle,
+.main .content #tech-steel_pickaxe.action a.button:hover .aTitle,
+.main .content #tech-steel_axes.action a.button:hover .aTitle,
+.main .content #tech-steel_containers.action a.button:hover .aTitle,
+.main .content #tech-steel_saw.action a.button:hover .aTitle,
+.main .content #tech-steel_beams.action a.button:hover .aTitle,
+.main .content #tech-steel_hoe.action a.button:hover .aTitle,
+.main .content #tech-blast_furnace.action a.button:hover .aTitle,
+.main .content #tech-barns.action a.button:hover .aTitle,
+.main .content #tech-master_craftsman.action a.button:hover .aTitle,
+.main .content #tech-espionage.action a.button:hover .aTitle,
+.main .content #tech-spy_training.action a.button:hover .aTitle,
+.main .content #tech-magic.action a.button:hover .aTitle,
+.main .content #tech-boot_camp.action a.button:hover .aTitle,
+.main .content #tech-home_safe.action a.button:hover .aTitle,
+.main .content #tech-electricity.action a.button:hover .aTitle,
+.main .content #tech-diplomacy.action a.button:hover .aTitle,
+.main .content #tech-windmill.action a.button:hover .aTitle,
+.main .content #tech-eebonds.action a.button:hover .aTitle,
+.main .content #city-hospital.action a.button:hover .aTitle,
+.main .content #city-boot_camp.action a.button:hover .aTitle,
+.main .content #city-trade.action a.button:hover .aTitle,
+.main .content #city-warehouse.action a.button:hover .aTitle,
+.main .content #city-sawmill.action a.button:hover .aTitle,
+.main .content #city-smelter.action a.button:hover .aTitle,
+.main .content #city-metal_refinery.action a.button:hover .aTitle,
+.main .content #city-coal_mine.action a.button:hover .aTitle,
+.main .content #city-wardenclyffe.action a.button:hover .aTitle,
+.main .content #city-mill.action a.button:hover .aTitle,
+.modal #tech-bayer_process.action a.button:hover .aTitle,
+.modal #tech-steel.action a.button:hover .aTitle,
+.modal #tech-dynamite.action a.button:hover .aTitle,
+.modal #tech-assistant.action a.button:hover .aTitle,
+.modal #tech-hospital.action a.button:hover .aTitle,
+.modal #tech-black_powder.action a.button:hover .aTitle,
+.modal #tech-carpentry.action a.button:hover .aTitle,
+.modal #tech-flintlock_rifle.action a.button:hover .aTitle,
+.modal #tech-steel_rebar.action a.button:hover .aTitle,
+.modal #tech-steel_vault.action a.button:hover .aTitle,
+.modal #tech-large_trades.action a.button:hover .aTitle,
+.modal #tech-reinforced_crates.action a.button:hover .aTitle,
+.modal #tech-mad_science.action a.button:hover .aTitle,
+.modal #tech-steel_pickaxe.action a.button:hover .aTitle,
+.modal #tech-steel_axes.action a.button:hover .aTitle,
+.modal #tech-steel_containers.action a.button:hover .aTitle,
+.modal #tech-steel_saw.action a.button:hover .aTitle,
+.modal #tech-steel_beams.action a.button:hover .aTitle,
+.modal #tech-steel_hoe.action a.button:hover .aTitle,
+.modal #tech-blast_furnace.action a.button:hover .aTitle,
+.modal #tech-barns.action a.button:hover .aTitle,
+.modal #tech-master_craftsman.action a.button:hover .aTitle,
+.modal #tech-espionage.action a.button:hover .aTitle,
+.modal #tech-spy_training.action a.button:hover .aTitle,
+.modal #tech-magic.action a.button:hover .aTitle,
+.modal #tech-boot_camp.action a.button:hover .aTitle,
+.modal #tech-home_safe.action a.button:hover .aTitle,
+.modal #tech-electricity.action a.button:hover .aTitle,
+.modal #tech-diplomacy.action a.button:hover .aTitle,
+.modal #tech-windmill.action a.button:hover .aTitle,
+.modal #tech-eebonds.action a.button:hover .aTitle,
+.modal #city-hospital.action a.button:hover .aTitle,
+.modal #city-boot_camp.action a.button:hover .aTitle,
+.modal #city-trade.action a.button:hover .aTitle,
+.modal #city-warehouse.action a.button:hover .aTitle,
+.modal #city-sawmill.action a.button:hover .aTitle,
+.modal #city-smelter.action a.button:hover .aTitle,
+.modal #city-metal_refinery.action a.button:hover .aTitle,
+.modal #city-coal_mine.action a.button:hover .aTitle,
+.modal #city-wardenclyffe.action a.button:hover .aTitle,
+.modal #city-mill.action a.button:hover .aTitle {
+  opacity: 1;
+}
+
+.district-resource {
+  display: flex;
+  cursor: default;
+  align-items: center;
+}
+
+.district-resource > div,
+#outskirts-resource-stack .resource > div {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  min-width: 0;
+  align-items: center;
+}
+
+.district-resource > :nth-child(2),
+#outskirts-resource-stack .resource > :nth-child(2) {
+  text-align: center;
+  flex: 0 0 1.25rem;
+  width: auto;
+}
+
+.district-resource .interact,
+#outskirts-resource-stack .resource .interact {
+  cursor: pointer;
+}
+
+.district-resource > :nth-child(3),
+#outskirts-resource-stack .resource > :nth-child(3) {
+  text-align: right;
+  flex: 0 1 4.5rem;
+  min-width: 3.5rem;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.district-resource .craftable,
+#outskirts-resource-stack .resource .craftable {
+  flex: 0 1 7rem;
+  min-width: 5rem;
+  width: auto;
+  text-align: right;
+}
+
+.district-resource .craftable > span,
+#outskirts-resource-stack .resource .craftable > span {
+  display: inline;
+  margin-left: 0.25rem;
+}
+
+.district-resource .res,
+#outskirts-resource-stack .resource .res {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.district-resource .count,
+#outskirts-resource-stack .resource .count {
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-left: 0;
+}
+
+#city-dist-outskirts .district-resource .count,
+#city-dist-outskirts .district-resource .diff,
+#city-dist-residential .district-resource .count,
+#city-dist-residential .district-resource .diff,
+#city-dist-commercial .district-resource .count,
+#city-dist-commercial .district-resource .diff,
+#city-dist-science .district-resource .count,
+#city-dist-science .district-resource .diff,
+#outskirts-resource-stack .count,
+#outskirts-resource-stack .diff,
+#science-resource-stack .count,
+#science-resource-stack .diff,
+#residential-resource-stack .count,
+#residential-resource-stack .diff,
+#commercial-resource-stack .count,
+#commercial-resource-stack .diff {
+  display: none !important;
+}
+
+#city-dist-outskirts .outskirts-resource-stack,
+#city-dist-residential .residential-resource-stack,
+#city-dist-commercial .commercial-resource-stack,
+#city-dist-science .science-resource-stack {
+  display: none !important;
+}
+
+#city-dist-residential,
+#city-dist-commercial,
+#city-dist-science,
+#city-dist-military,
+#city-dist-trade,
+#city-dist-industrial {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+#city-dist-residential .action,
+#city-dist-commercial .action,
+#city-dist-science .action,
+#city-dist-military .action,
+#city-dist-trade .action,
+#city-dist-industrial .action {
+  flex: 0 0 calc(33.333% - 0.6rem);
+  margin: 0;
+}
+
+#city-dist-residential .action a.button,
+#city-dist-residential .action span.oldTech,
+#city-dist-commercial .action a.button,
+#city-dist-commercial .action span.oldTech,
+#city-dist-science .action a.button,
+#city-dist-science .action span.oldTech,
+#city-dist-military .action a.button,
+#city-dist-military .action span.oldTech,
+#city-dist-trade .action a.button,
+#city-dist-trade .action span.oldTech,
+#city-dist-industrial .action a.button,
+#city-dist-industrial .action span.oldTech {
+  width: 100%;
+  margin: 0;
+}
+
+#city-dist-outskirts .district-resource .res,
+#city-dist-outskirts .outskirts-resource .res,
+#city-dist-residential .district-resource .res,
+#city-dist-commercial .district-resource .res,
+#city-dist-science .district-resource .res,
+#outskirts-resource-stack .resource .res,
+#science-resource-stack .resource .res,
+#residential-resource-stack .resource .res,
+#commercial-resource-stack .resource .res {
+  display: none !important;
+}
+
+#tech .action a.button.has-unlock-icon {
+  position: relative;
+  padding-right: 1.8rem;
+}
+
+#tech .action a.button .tech-unlock-icon {
+  position: absolute;
+  right: 0.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  color: #d4af37;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+#tech .action a.button .tech-unlock-icon svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+#outskirts-resource-stack,
+#outskirts-lumber-stack,
+#military-resource-stack,
+#industrial-resource-stack,
+#trade-resource-stack,
+#science-resource-stack,
+#residential-resource-stack,
+#commercial-resource-stack {
+  cursor: default;
+  touch-action: auto;
+  user-select: none;
+  position: relative;
+  align-self: flex-start;
+}
+
+#outskirts-resource-stack.is-dragging,
+#outskirts-lumber-stack.is-dragging,
+#military-resource-stack.is-dragging,
+#industrial-resource-stack.is-dragging,
+#trade-resource-stack.is-dragging,
+#science-resource-stack.is-dragging,
+#residential-resource-stack.is-dragging,
+#commercial-resource-stack.is-dragging {
+  cursor: grabbing;
+}
+
+#outskirts-resource-stack.is-resizing,
+#outskirts-lumber-stack.is-resizing,
+#military-resource-stack.is-resizing,
+#industrial-resource-stack.is-resizing,
+#trade-resource-stack.is-resizing,
+#science-resource-stack.is-resizing,
+#residential-resource-stack.is-resizing,
+#commercial-resource-stack.is-resizing {
+  cursor: ew-resize;
+}
+
+#outskirts-resource-stack .resource-resize-handle,
+#outskirts-lumber-stack .resource-resize-handle,
+#military-resource-stack .resource-resize-handle,
+#industrial-resource-stack .resource-resize-handle,
+#trade-resource-stack .resource-resize-handle,
+#science-resource-stack .resource-resize-handle,
+#residential-resource-stack .resource-resize-handle,
+#commercial-resource-stack .resource-resize-handle {
+  position: absolute;
+  top: 0;
+  right: -6px;
+  width: 10px;
+  height: 100%;
+  cursor: ew-resize;
+  background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.45), transparent);
+  opacity: 0.9;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+#outskirts-resource-stack .resource,
+#outskirts-lumber-stack .resource,
+#military-resource-stack .resource,
+#industrial-resource-stack .resource,
+#trade-resource-stack .resource,
+#science-resource-stack .resource,
+#residential-resource-stack .resource,
+#commercial-resource-stack .resource {
+  box-sizing: border-box;
+}
+#resources .hide-outskirts-resource {
+  display: none !important;
+}
+
+#resources .hide-left-resource {
+  display: none !important;
+}
+
+#resources .hide-left-resource:not([style*="display:none"]):not([style*="display: none"]) {
+  display: flex !important;
+}
+
+#resources #resCopper.resource.showBar {
+  position: relative;
+}
+
+#resources #resCopper.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-color: #b87333;
+}
+
+#resources #resPlywood.resource.showBar {
+  position: relative;
+}
+
+#resources #resPlywood.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-color: #c89a5a;
+}
+
+#resources #resCement.resource.showBar {
+  position: relative;
+}
+
+#resources #resCement.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-color: #9e9e9e;
+}
+
+#resources #resCoal.resource.showBar {
+  position: relative;
+}
+
+#resources #resCoal.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-image: repeating-linear-gradient(135deg, #111 0 4px, #2c2c2c 4px 8px);
+}
+
+#resources #resFurs.resource.showBar {
+  position: relative;
+}
+
+#resources #resFurs.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-image: repeating-linear-gradient(135deg, #5a3a1a 0 4px, #8b5a2b 4px 8px);
+}
+
+#resources #resMoney.resource.showBar {
+  position: relative;
+}
+
+#resources #resMoney.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-color: #d4af37;
+}
+
+#resources #resSteel.resource.showBar {
+  position: relative;
+}
+
+#resources #resSteel.resource.showBar::after {
+  content: "";
+  position: absolute;
+  left: 0.45rem;
+  right: 0.45rem;
+  bottom: 0;
+  height: 0.18rem;
+  border-radius: 0 0 0.25rem 0.25rem;
+  pointer-events: none;
+  transform-origin: left;
+  transform: scaleX(var(--percent-full-ratio, 0));
+  background-color: #4f6d7a;
+}
+
+#resourcePanelFloatingToggle {
+  display: inline-flex;
+}
+
+#resourcePanelFloating.warehouse-only .resTabs > .tabs li:first-child,
+#resourcePanelFloating.warehouse-only #market {
+  display: none !important;
+}
+
+#resources .resource.resource-full .res {
+  text-shadow: 0 0 0.35rem currentColor;
+}
+
+#resources .resource.resource-full .res-icon svg {
+  filter: drop-shadow(0 0 0.3rem currentColor);
+}
+
+#resources .hide-left-numbers .count,
+#resources .hide-left-numbers .diff {
+  display: none;
+}
+
+#resources .hide-left-numbers:not([style*="display:none"]):not([style*="display: none"]) .count,
+#resources .hide-left-numbers:not([style*="display:none"]):not([style*="display: none"]) .diff {
+  display: inline-flex;
+}
+
+#resources.resources-force-show .hide-outskirts-resource,
+#resources.resources-force-show .hide-left-resource {
+  display: block !important;
+}
+
+#resources.resources-force-show .hide-left-numbers .count,
+#resources.resources-force-show .hide-left-numbers .diff {
+  display: inline-flex;
+}
+
+#tech,
+#techCompleted,
+#techCompleted .tech {
+  display: grid !important;
+  grid-template-columns: repeat(4, 5.5rem) !important;
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+  align-items: start;
+  justify-content: center;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+#tech .tech-title-new,
+#tech .tech-title-completed {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+#techCompleted > div,
+#techCompleted .tech > div {
+  text-align: center;
+}
+
+#tech > div:not(.action),
+#techCompleted > div:not(.action),
+#techCompleted .tech > div:not(.action) {
+  grid-column: 1 / -1 !important;
+}
+
+#tech > .action,
+#techCompleted > .action,
+#techCompleted .tech > .action {
+  margin: 0 !important;
+  width: 5.5rem !important;
+  height: 5.5rem !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+#tech > .action a.button,
+#tech > .action .oldTech,
+#techCompleted > .action .oldTech,
+#techCompleted .tech > .action .oldTech {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+}
+
+#tech > .action a.button,
+#techCompleted > .action .oldTech,
+#techCompleted .tech > .action .oldTech {
+  border-radius: 50% !important;
+}
+
+#techCompleted > .action .oldTech,
+#techCompleted .tech > .action .oldTech {
+  border: 2px solid #00b7ff !important;
+  box-shadow: 0 0 0 2px rgba(0, 183, 255, 0.35) !important;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  position: relative;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center;
+}
+
+#techCompleted > .action .oldTech .aTitle,
+#techCompleted .tech > .action .oldTech .aTitle {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 0.35rem;
+  line-height: 1.05;
+  pointer-events: none;
+}
+
+#topBar .bgm-toggle {
+  width: 1.2rem;
+  height: 1.2rem;
+  min-width: 1.2rem;
+  padding: 0;
+  margin: 0 0.6rem 0 0.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(0, 0, 0, 0.25);
+  color: #f1f1f1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 120ms ease;
+}
+
+#topBar .bgm-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+#topBar .bgm-toggle:active {
+  transform: scale(0.94);
+}
+
+#topBar .bgm-toggle.is-muted {
+  border-color: rgba(241, 70, 104, 0.75);
+  color: #f14668;
+  background: rgba(241, 70, 104, 0.15);
+}
+
+#topBar .bgm-toggle .bgm-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#topBar .bgm-toggle .bgm-off {
+  display: none;
+}
+
+#topBar .bgm-toggle.is-muted .bgm-on {
+  display: none;
+}
+
+#topBar .bgm-toggle.is-muted .bgm-off {
+  display: inline-flex;
+}
+
+#topBar .bgm-toggle svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  fill: currentColor;
+}
+
+#topBar .bgm-toggle svg line {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+#topBar .topbar-floating-toggles {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0.4rem 0 0.25rem;
+}
+
+#topBar .topbar-floating-toggles #smelterFloatingToggle,
+#topBar .topbar-floating-toggles #resourcePanelFloatingToggle,
+#topBar .topbar-floating-toggles #powerGridFloatingToggle,
+#topBar .topbar-floating-toggles #militaryTabFloatingToggle,
+#topBar .topbar-floating-toggles #governmentFloatingToggle,
+#topBar .topbar-floating-toggles #researchFloatingToggle {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin: 0;
+  z-index: auto;
+}
+
+#topBar .bgm-volume {
+  display: inline-flex;
+  align-items: center;
+  height: 1.2rem;
+  margin: 0 0.6rem 0 0;
+}
+
+#topBar .bgm-volume-range {
+  width: 3.2rem;
+  height: 0.35rem;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  outline: none;
+}
+
+#topBar .bgm-volume-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: #f1f1f1;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+#topBar .bgm-volume-range::-moz-range-thumb {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: #f1f1f1;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+#topBar .bgm-volume-range::-moz-range-track {
+  height: 0.35rem;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+}
+
+#topBar .settings-button {
+  height: 1.2rem;
+  min-height: 1.2rem;
+  padding: 0 0.6rem;
+  margin: 0 0.6rem 0 0;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(0, 0, 0, 0.25);
+  color: #f1f1f1;
+  font-size: 0.65rem;
+  line-height: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 120ms ease;
+}
+
+#topBar .settings-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+#topBar .settings-button:active {
+  transform: scale(0.96);
+}
+
+#topBar .resources-panel-toggle.is-active {
+  background: #f5c542;
+  border-color: #f5c542;
+  color: #1a1a1a;
+}
+
+#resources-panel-toggle {
+  display: none !important;
+}
+
+.job_label.job-avatar-label .count {
+  position: absolute;
+  left: 50%;
+  bottom: 0.45rem;
+  margin: 0;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  padding: 0 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.65);
+  color: #f8f8f8;
+  font-size: 0.75rem;
+  line-height: 1;
+  transform: translate(-50%, 0) translate(var(--count-offset-x, 0px), var(--count-offset-y, 0px));
+  cursor: default;
+  touch-action: auto;
+  user-select: none;
+}
+
+.job_label.job-avatar-label .job-avatar-control {
+  width: 1.45rem;
+  height: 1.45rem;
+  min-width: 1.45rem;
+  min-height: 1.45rem;
+  max-width: 1.45rem;
+  max-height: 1.45rem;
+  box-sizing: border-box;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Lato', sans-serif;
+  font-variant-emoji: text;
+  line-height: 1;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  font-size: 0.95rem;
+  transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+  position: relative;
+}
+
+.job_label.job-avatar-label .job-avatar-control::before {
+  content: none;
+}
+
+.job_label.job-avatar-label .job-avatar-control.avatar-control-add::after {
+  content: none;
+}
+
+.job_label.job-avatar-label .job-avatar-control:active {
+  transform: scale(0.9);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
+  filter: brightness(1.05);
+}
+
+#moneyFloating {
+  position: fixed;
+  right: 0.5rem;
+  top: 5rem;
+  z-index: 12;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: solid 0.0625rem rgba(255, 255, 255, 0.08);
+  cursor: move;
+  touch-action: none;
+}
+
+#moneyFloating .resource {
+  margin: 0;
+}
+
+#knowledgeFloating {
+  position: fixed;
+  right: 0.5rem;
+  top: 6.6rem;
+  z-index: 12;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: solid 0.0625rem rgba(255, 255, 255, 0.08);
+  cursor: move;
+  touch-action: none;
+}
+
+#knowledgeFloating .resource {
+  margin: 0;
+}
+
+#race .race-population {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.35rem;
+}
+
+#race .race-population .resource {
+  flex: 0 0 auto;
+}
+
+#race .race-population .resource > div {
+  flex: 0 0 auto;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+#race .race-population .res,
+#race .race-population .count {
+  color: #f8f8f8;
+  font-size: 0.8rem;
+}
+
+#race .race-population .count {
+  margin-left: 0;
+}
+
+#civics .jobList {
+  justify-content: flex-start !important;
+  text-align: left !important;
+  align-items: flex-start !important;
+}
+
+#civics {
+  grid-template-columns: minmax(0, 1fr) !important;
+  column-gap: 0 !important;
+  row-gap: 0.9rem;
+}
+
+#civics > .jobList,
+#civics > #r_civics {
+  width: 100%;
+  max-width: 100%;
+}
+
+#civics .jobList #jobs {
+  justify-content: flex-start !important;
+  text-align: left !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: flex-start !important;
+  position: relative;
+  padding-top: 2.6rem;
+}
+
+#civics .jobList #jobs::before {
+  content: "人口分配";
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  color: #f5c542;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+#civics .jobList #jobs::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.7rem;
+  width: 100%;
+  height: 0.1rem;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0), rgba(212, 175, 55, 0.7) 20%, rgba(212, 175, 55, 0.7) 80%, rgba(212, 175, 55, 0));
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+#civics .jobList #job-market {
+  position: relative;
+  width: 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+  margin-top: 0.9rem;
+  padding-top: 2.4rem;
+}
+
+#civics .jobList #job-market::before {
+  content: "市场";
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  color: #f5c542;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+#civics .jobList #job-market::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.7rem;
+  width: 100%;
+  height: 0.1rem;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0), rgba(212, 175, 55, 0.7) 20%, rgba(212, 175, 55, 0.7) 80%, rgba(212, 175, 55, 0));
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded .tabs {
+  display: none;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded .tab-content > .tab-item {
+  display: none;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded .tab-content > #market,
+#civics .jobList #job-market #mTabResource.market-embedded .tab-content > #resStorage {
+  display: block !important;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded #resStorage {
+  position: relative;
+  margin-top: 1rem;
+  padding-top: 2.4rem;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded #resStorage::before {
+  content: "仓库";
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  color: #f5c542;
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+#civics .jobList #job-market #mTabResource.market-embedded #resStorage::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.7rem;
+  width: 100%;
+  height: 0.1rem;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0), rgba(212, 175, 55, 0.7) 20%, rgba(212, 175, 55, 0.7) 80%, rgba(212, 175, 55, 0));
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.main .content #mTabCivil .civil-triple {
+  height: calc(100vh - 10.5rem);
+}
+
+.main .content #mTabCivil .civil-triple > .column {
+  min-height: 0;
+}
+
+.main .content #mTabCivil #civilSplitMain {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.main .content #mTabCivil #civilTripleCivic,
+.main .content #mTabCivil #civilSplitCivic {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.main #civilSplitMain .resTabs {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.main #civilSplitMain .resTabs > .tab-content,
+.main #civilTripleCivic .resTabs > .tab-content,
+.main #civilSplitCivic .resTabs > .tab-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 197, 66, 0.7) rgba(255, 255, 255, 0.08);
+}
+
+.main #civilSplitMain .resTabs > .tab-content::-webkit-scrollbar,
+.main #civilTripleCivic .resTabs > .tab-content::-webkit-scrollbar,
+.main #civilSplitCivic .resTabs > .tab-content::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.main #civilSplitMain .resTabs > .tab-content::-webkit-scrollbar-thumb,
+.main #civilTripleCivic .resTabs > .tab-content::-webkit-scrollbar-thumb,
+.main #civilSplitCivic .resTabs > .tab-content::-webkit-scrollbar-thumb {
+  background: rgba(245, 197, 66, 0.7);
+  border-radius: 999px;
+}
+
+.main #civilSplitMain .resTabs > .tab-content::-webkit-scrollbar-track,
+.main #civilTripleCivic .resTabs > .tab-content::-webkit-scrollbar-track,
+.main #civilSplitCivic .resTabs > .tab-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+
+.main #civilSplitMain #city {
+  max-height: none;
+  overflow: visible;
+}
+
+#powerGridFloatingToggle {
+  position: fixed;
+  left: 1rem;
+  top: 12rem;
+  z-index: 100002;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border-radius: 999px;
+  border: solid 0.0625rem #f5c542;
+  background: #f5c542;
+  color: #1a1a1a;
+  font-weight: 700;
+  box-shadow: 0 0 0.5rem rgba(245, 197, 66, 0.55);
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
+}
+
+#powerGridFloatingToggle:hover {
+  background: #ffd45c;
+  border-color: #ffd45c;
+}
+
+#powerGridFloatingToggle svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+#powerGridFloatingToggle:active {
+  transform: translateY(1px) scale(0.95);
+  box-shadow: 0 0 0.3rem rgba(245, 197, 66, 0.55);
+  filter: brightness(0.95);
+}
+
+#powerGridFloatingToggle.is-dragging {
+  opacity: 0.9;
+}
+
+#civics .jobList #jobs .job.job-avatar {
+  margin-left: 0 !important;
+  flex: 0 0 calc((100% - 1rem) / 5) !important;
+  width: calc((100% - 1rem) / 5) !important;
+  max-width: calc((100% - 1rem) / 5) !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-auto-rows: max-content !important;
+  align-items: start !important;
+  justify-items: start !important;
+  gap: 0.35rem !important;
+  margin-bottom: 0.9rem !important;
+}
+
+#civics .jobList #jobs .job[style*="display: none"],
+#civics .jobList #jobs .job[style*="display:none"] {
+  display: none !important;
+}
+
+#civics .jobList #jobs .job.job-avatar .job-resource-wrap {
+  margin-left: 0 !important;
+  margin-top: 0.25rem !important;
+  width: 100% !important;
+  align-self: stretch !important;
+  grid-column: 1 / -1 !important;
+}
+
+#civics .jobList #jobs .job.job-avatar.job-resource-inline {
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+}
+
+#civics .jobList #jobs .job.job-avatar.job-resource-inline .job-resource-wrap {
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+  align-self: center !important;
+}
+
+#civics .jobList #jobs .job_label.job-avatar-label {
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+#civics .jobList #jobs .job_label.job-avatar-label h3,
+#civics .jobList #jobs .job_label.job-avatar-label > :first-child {
+  margin-right: 0 !important;
+  width: auto !important;
+}
+
+#civics .jobList #jobs .job_label.job-avatar-label .job-avatar-stack .job-avatar-control {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 0.85rem !important;
+  line-height: 1 !important;
+  text-indent: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#civics .jobList #jobs .job_label.job-avatar-label .job-avatar-stack .job-avatar-control::before,
+#civics .jobList #jobs .job_label.job-avatar-label .job-avatar-stack .job-avatar-control::after {
+  content: none !important;
+}
+
+#civics .jobList #jobs .job_label.job-avatar-label .count {
+  left: -0.75rem !important;
+  bottom: -0.7rem !important;
+  transform: translate(0, 0) translate(var(--count-offset-x, 0px), var(--count-offset-y, 0px)) !important;
+}
+
+#civics .jobList #jobs .job_label.job-avatar-label .count.count-max {
+  left: auto !important;
+  right: -0.35rem !important;
+  bottom: -0.7rem !important;
+  font-size: 0.85rem !important;
+  transform: translate(0, 0) translate(var(--count-max-offset-x, 0px), var(--count-max-offset-y, 0px)) !important;
+}
+
+.main .content #tech-corpocracy.action a.button,
+.main .content #tech-technocracy.action a.button,
+.main .content #tech-oil_well.action a.button,
+.main .content #tech-scientific_journal.action a.button,
+.main .content #tech-zoning_permits.action a.button,
+.main .content #tech-vocational_training.action a.button,
+.main .content #tech-portland_cement.action a.button,
+.main .content #tech-signing_bonus.action a.button,
+.main .content #tech-corruption.action a.button,
+.main .content #tech-freight.action a.button,
+.main .content #tech-titanium_axes.action a.button,
+.main .content #tech-warehouse.action a.button,
+.main .content #tech-titanium_hoe.action a.button,
+.main .content #tech-hunter_process.action a.button,
+.main .content #tech-oxygen_converter.action a.button,
+.main .content #tech-rotary_kiln.action a.button,
+.main .content #tech-oil_depot.action a.button,
+.main .content #tech-machine_gun.action a.button,
+.main .content #tech-adjunct_professor.action a.button,
+.main .content #tech-anfo.action a.button,
+.main .content #tech-wharf.action a.button,
+.modal #tech-corpocracy.action a.button,
+.modal #tech-technocracy.action a.button,
+.modal #tech-oil_well.action a.button,
+.modal #tech-scientific_journal.action a.button,
+.modal #tech-zoning_permits.action a.button,
+.modal #tech-vocational_training.action a.button,
+.modal #tech-portland_cement.action a.button,
+.modal #tech-signing_bonus.action a.button,
+.modal #tech-corruption.action a.button,
+.modal #tech-freight.action a.button,
+.modal #tech-titanium_axes.action a.button,
+.modal #tech-warehouse.action a.button,
+.modal #tech-titanium_hoe.action a.button,
+.modal #tech-hunter_process.action a.button,
+.modal #tech-oxygen_converter.action a.button,
+.modal #tech-rotary_kiln.action a.button,
+.modal #tech-oil_depot.action a.button,
+.modal #tech-machine_gun.action a.button,
+.modal #tech-adjunct_professor.action a.button,
+.modal #tech-anfo.action a.button,
+.modal #tech-wharf.action a.button {
+  background: transparent no-repeat center;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #2ecc71;
+  box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.35);
+  border-radius: 9999px;
+  min-height: 4.5rem;
+  min-width: 6rem;
+  padding: 0.1rem;
+  transform-origin: center;
+  transition: transform 0.08s ease, filter 0.08s ease;
+}
+
+.main .content #tech-corpocracy.action a.button,
+.modal #tech-corpocracy.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/corpocracy.webp);
+}
+
+.main .content #tech-technocracy.action a.button,
+.modal #tech-technocracy.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/technocracy.webp);
+}
+
+.main .content #tech-oil_well.action a.button,
+.modal #tech-oil_well.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/oil-derrick.webp);
+}
+
+.main .content #tech-scientific_journal.action a.button,
+.modal #tech-scientific_journal.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/scientific-journal.webp);
+}
+
+.main .content #tech-zoning_permits.action a.button,
+.modal #tech-zoning_permits.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/zoning-permits.webp);
+}
+
+.main .content #tech-vocational_training.action a.button,
+.modal #tech-vocational_training.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/vocational-training.webp);
+}
+
+.main .content #tech-portland_cement.action a.button,
+.modal #tech-portland_cement.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/portland-cement.webp);
+}
+
+.main .content #tech-signing_bonus.action a.button,
+.modal #tech-signing_bonus.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/signing-bonus.webp);
+}
+
+.main .content #tech-corruption.action a.button,
+.modal #tech-corruption.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/corrupt-politicians.webp);
+}
+
+.main .content #tech-freight.action a.button,
+.modal #tech-freight.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/freight-trains.webp);
+}
+
+.main .content #tech-titanium_axes.action a.button,
+.modal #tech-titanium_axes.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/titanium-axe.webp);
+}
+
+.main .content #tech-warehouse.action a.button,
+.modal #tech-warehouse.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/warehouse.webp);
+}
+
+.main .content #tech-titanium_hoe.action a.button,
+.modal #tech-titanium_hoe.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/titanium-hoes.webp);
+}
+
+.main .content #tech-hunter_process.action a.button,
+.modal #tech-hunter_process.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/hunter-process.webp);
+}
+
+.main .content #tech-oxygen_converter.action a.button,
+.modal #tech-oxygen_converter.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/oxygen-converter.webp);
+}
+
+.main .content #tech-rotary_kiln.action a.button,
+.modal #tech-rotary_kiln.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/rotary-kiln.webp);
+}
+
+.main .content #tech-oil_depot.action a.button,
+.modal #tech-oil_depot.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/fuel-depot.webp);
+}
+
+.main .content #tech-machine_gun.action a.button,
+.modal #tech-machine_gun.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/machine-gun.webp);
+}
+
+.main .content #tech-adjunct_professor.action a.button,
+.modal #tech-adjunct_professor.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/adjunct-professiors.webp);
+}
+
+.main .content #tech-anfo.action a.button,
+.modal #tech-anfo.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/anfo.webp);
+}
+
+.main .content #tech-wharf.action a.button,
+.modal #tech-wharf.action a.button {
+  background-image: url(/photo/sexual-reproduction/multicellular/poikilohydric/pinguicla/research/wharves.webp);
+}
+
+#civics .jobList #jobs .job-avatar-control.avatar-control-sub,
+#civics .jobList #jobs .job_label.job-avatar-label .job-avatar-control.avatar-control-sub {
+  color: #7ce7a1;
+  border-color: rgba(124, 231, 161, 0.95);
+}
+
+#civics .jobList #jobs .job-avatar-control.avatar-control-add,
+#civics .jobList #jobs .job_label.job-avatar-label .job-avatar-control.avatar-control-add {
+  color: #ff8a8a;
+  border-color: rgba(255, 138, 138, 0.95);
+}
+
+.job-avatar-control.avatar-control-sub {
+  color: #7ce7a1 !important;
+  border-color: rgba(124, 231, 161, 0.95) !important;
+}
+
+.job-avatar-control.avatar-control-add {
+  color: #ff8a8a !important;
+  border-color: rgba(255, 138, 138, 0.95) !important;
+}
+
+@keyframes job-control-tap {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(0.86);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+    filter: brightness(1.15);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    filter: brightness(1);
+  }
+}
+
+.job-avatar-control.avatar-control-sub:active,
+.job-avatar-control.avatar-control-add:active {
+  animation: job-control-tap 160ms ease;
+}
+
+#civics .jobList #jobs .job_label .count.has-text-success,
+#civics .jobList #jobs .job_label .count.has-text-success + .count,
+.resource-job-control.is-full .value,
+.resource-job-control.is-full .value.max {
+  color: #f5c542;
+}
+
+@keyframes job-count-flash-inc {
+  0% {
+    color: #ff8a8a;
+  }
+  100% {
+    color: inherit;
+  }
+}
+
+@keyframes job-count-flash-dec {
+  0% {
+    color: #7ce7a1;
+  }
+  100% {
+    color: inherit;
+  }
+}
+
+.job-count-flash-inc {
+  color: #ff8a8a !important;
+  animation: job-count-flash-inc 520ms ease;
+}
+
+.job-count-flash-dec {
+  color: #7ce7a1 !important;
+  animation: job-count-flash-dec 520ms ease;
+}
+
+.resource-job-control.flash-inc .value,
+.resource-job-control.flash-inc .value.max {
+  color: #ff8a8a !important;
+}
+
+.resource-job-control.flash-dec .value,
+.resource-job-control.flash-dec .value.max {
+  color: #7ce7a1 !important;
+}
