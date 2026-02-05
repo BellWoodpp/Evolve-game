@@ -241,7 +241,9 @@ function syncResourcesPanelHiddenState(){
     }
     const hide = Boolean(global.settings?.hideResourcesPanel);
     const forceHide = global.race?.species === 'protoplasm';
-    const effectiveHide = hide || forceHide;
+    const activeTabKey = getMainTabKey(global.settings?.civTabs);
+    const forceHideEvolution = activeTabKey === 'evolution';
+    const effectiveHide = hide || forceHide || forceHideEvolution;
     $('body').toggleClass('hide-resources-panel', effectiveHide);
     const resources = $('#resources');
     if (resources.length){
